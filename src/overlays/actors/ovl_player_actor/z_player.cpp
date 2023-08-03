@@ -12672,16 +12672,17 @@ s16 FirstPerson_ManipulatePlayer(GlobalContext* globalCtx, Player* pthis, s32 ar
 		if(oot::config().camera().useClassicCamera())
 			temp3 = ((sControlInput->rel.stick_y >= 0) ? 1 : -1) * (s32)((1.0f - Math_CosS(sControlInput->rel.stick_y * 200)) * 1500.0f * oot::config().camera().scalerY());
 		else
-			temp3 = (rStickY >> 5) * -oot::config().camera().scalerY();
+			temp3 = (rStickY / 24.0) * -oot::config().camera().scalerY();
 		pthis->actor.focus.rot.x += temp3;
 		pthis->actor.focus.rot.x = CLAMP((float)pthis->actor.focus.rot.x, -temp1, temp1);
 
 		temp1 = 19114;
 		temp2 = pthis->actor.focus.rot.y - pthis->actor.shape.rot.y;
 		if(oot::config().camera().useClassicCamera())
-			temp3 = ((sControlInput->rel.stick_x >= 0) ? 1 : -1) * (s32)((1.0f - Math_CosS(sControlInput->rel.stick_x * 200)) * -1500.0f * oot::config().camera().scalerY());
+			temp3 = ((sControlInput->rel.stick_x >= 0) ? 1 : -1) * (s32)((1.0f - Math_CosS(sControlInput->rel.stick_x * 200)) * -1500.0f * oot::config().camera().scalerX());
 		else
-			temp3 = (rStickX >> 5) * oot::config().camera().scalerY();
+			temp3 = (rStickX / 24.0) * oot::config().camera().scalerX();
+
 		temp2 += temp3;
 		pthis->actor.focus.rot.y = CLAMP(temp2.whole(), -temp1, temp1) + pthis->actor.shape.rot.y;
 	}
