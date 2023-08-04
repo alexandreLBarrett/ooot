@@ -69,7 +69,7 @@
       <LinkTimeCodeGeneration Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
     <PostBuildEvent>
-      <Command Condition="'$(Platform)'=='Win32'">xcopy /y $(SolutionDir)..\RaphnetAdapter\hidapi-win\x86\* $(SolutionDir)$(Configuration)\</Command>
+      <Command Condition="'$(Platform)'=='Win32'">xcopy /y "$(SolutionDir)..\RaphnetAdapter\hidapi-win\x86\*" "$(SolutionDir)$(Configuration)\"</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Command Condition="'$(Platform)'=='x64'">xcopy /y $(SolutionDir)..\RaphnetAdapter\hidapi-win\x64\* $(SolutionDir)$(Configuration)\</Command>

@@ -116,7 +116,7 @@ f32 Camera_LERPCeilF(f32 target, f32 cur, f32 stepScale, f32 minDiff)
 
 	if(fabsf(diff) >= minDiff)
 	{
-		step = diff * stepScale;
+		step = diff * stepScale * FRAMERATE_SCALER;
 		ret = cur + step;
 	}
 	else
@@ -139,7 +139,7 @@ f32 Camera_LERPFloorF(f32 target, f32 cur, f32 stepScale, f32 minDiff)
 
 	if(fabsf(diff) >= minDiff)
 	{
-		step = diff * stepScale;
+		step = diff * stepScale * FRAMERATE_SCALER;
 		ret = cur + step;
 	}
 	else
@@ -162,7 +162,7 @@ s16 Camera_LERPCeilS(s16 target, s16 cur, f32 stepScale, s16 minDiff)
 
 	if(ABS(diff) >= minDiff)
 	{
-		step = diff * stepScale + 0.5f;
+		step = diff * stepScale + 0.5f * FRAMERATE_SCALER;
 		ret = cur + step;
 	}
 	else
@@ -185,7 +185,7 @@ s16 Camera_LERPFloorS(s16 target, s16 cur, f32 stepScale, s16 minDiff)
 
 	if(ABS(diff) >= minDiff)
 	{
-		step = diff * stepScale + 0.5f;
+		step = diff * stepScale + 0.5f * FRAMERATE_SCALER;
 		ret = cur + step;
 	}
 	else
@@ -1208,12 +1208,12 @@ s32 Camera_CalcAtForParallel(Camera* camera, VecSph* arg1, f32 arg2, f32* arg3, 
 			temp_f2 = Math_FTanF(DEG_TO_RAD(camera->fov * 0.4f)) * phi_f16;
 			if(temp_f2 < phi_f20)
 			{
-				*arg3 += phi_f20 - temp_f2;
+				*arg3 += phi_f20 - temp_f2 * FRAMERATE_SCALER;
 				phi_f20 = temp_f2;
 			}
 			else if(phi_f20 < -temp_f2)
 			{
-				*arg3 += phi_f20 + temp_f2;
+				*arg3 += phi_f20 + temp_f2 * FRAMERATE_SCALER;
 				phi_f20 = -temp_f2;
 			}
 			posOffsetTarget.y -= phi_f20;
@@ -2438,7 +2438,7 @@ s32 Camera_Parallel1(Camera* camera)
 			}
 			else
 			{
-				anim->animTimer = R_DEFA_CAM_ANIM_TIME;
+				anim->animTimer = R_DEFA_CAM_ANIM_TIME * FRAMERATE_SCALER_INV;
 			}
 			anim->unk_00.x = 0.0f;
 			anim->yTarget = playerPosRot->pos.y - camera->playerPosDelta.y;
