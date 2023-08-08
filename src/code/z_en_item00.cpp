@@ -483,8 +483,8 @@ void EnItem00_Init(Actor* pthisx, GlobalContext* globalCtx)
 		return;
 	}
 
-	pthis->unk_15A = 15;
-	pthis->unk_154 = 35;
+	pthis->unk_15A = 15.0 * FRAMERATE_SCALER_INV;
+	pthis->unk_154 = 35.0 * FRAMERATE_SCALER_INV;
 
 	pthis->actor.speedXZ = 0.0f;
 	pthis->actor.velocity.y = 0.0f;
@@ -763,7 +763,7 @@ void func_8001E5C8(EnItem00* pthis, GlobalContext* globalCtx)
 		pthis->actor.shape.rot.y = 0;
 	}
 
-	pthis->actor.world.pos.y += 40.0f + Math_SinS(pthis->unk_15A * 15000) * (pthis->unk_15A * 0.3f);
+	pthis->actor.world.pos.y += 40.0f + Math_SinS(pthis->unk_15A * 15000 * FRAMERATE_SCALER) * (pthis->unk_15A * 0.3f * FRAMERATE_SCALER);
 
 	if(LINK_IS_ADULT)
 	{
@@ -955,6 +955,7 @@ void EnItem00_Update(Actor* pthisx, GlobalContext* globalCtx)
 
 	if((getItemId != GI_NONE) && !Actor_HasParent(&pthis->actor, globalCtx))
 	{
+		// Link picks up item
 		func_8002F554(&pthis->actor, globalCtx, getItemId);
 	}
 
@@ -995,8 +996,8 @@ void EnItem00_Update(Actor* pthisx, GlobalContext* globalCtx)
 
 	Flags_SetCollectible(globalCtx, pthis->collectibleFlag);
 
-	pthis->unk_15A = 15;
-	pthis->unk_154 = 35;
+	pthis->unk_15A = 15.0 * FRAMERATE_SCALER_INV;
+	pthis->unk_154 = 35.0 * FRAMERATE_SCALER_INV;
 	pthis->actor.shape.rot.z = 0;
 	pthis->actor.speedXZ = 0;
 	pthis->actor.velocity.y = 0;
@@ -1264,7 +1265,7 @@ EnItem00* Item_DropCollectible(GlobalContext* globalCtx, Vec3f* spawnPos, s16 pa
 				spawnedActor->actor.world.rot.y = Rand_CenteredFloat(65536.0f);
 				Actor_SetScale(&spawnedActor->actor, 0.0f);
 				EnItem00_SetupAction(spawnedActor, func_8001E304);
-				spawnedActor->unk_15A = 220;
+				spawnedActor->unk_15A = 220.0 * FRAMERATE_SCALER_INV;
 				if((spawnedActor->actor.params != ITEM00_SMALL_KEY) && (spawnedActor->actor.params != ITEM00_HEART_PIECE) && (spawnedActor->actor.params != ITEM00_HEART_CONTAINER))
 				{
 					spawnedActor->actor.room = -1;
@@ -1464,7 +1465,7 @@ void Item_DropCollectibleRandom(GlobalContext* globalCtx, Actor* fromActor, Vec3
 						{
 							spawnedActor->actor.room = -1;
 						}
-						spawnedActor->unk_15A = 220;
+						spawnedActor->unk_15A = 220.0 * FRAMERATE_SCALER_INV;
 					}
 				}
 			}

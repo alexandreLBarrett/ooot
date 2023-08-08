@@ -199,7 +199,7 @@ void DoorKiller_SpawnRubble(Actor* thisx, GlobalContext* globalCtx)
  */
 void DoorKiller_FallAsRubble(DoorKiller* pthis, GlobalContext* globalCtx)
 {
-	pthis->actor.velocity.y += pthis->actor.gravity;
+	pthis->actor.velocity.y += pthis->actor.gravity * FRAMERATE_SCALER;
 	if(pthis->actor.velocity.y < pthis->actor.minVelocityY)
 	{
 		pthis->actor.velocity.y = pthis->actor.minVelocityY;

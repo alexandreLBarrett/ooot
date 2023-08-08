@@ -79,7 +79,7 @@ void ObjKibako_SpawnCollectible(ObjKibako* pthis, GlobalContext* globalCtx)
 
 void ObjKibako_ApplyGravity(ObjKibako* pthis)
 {
-	pthis->actor.velocity.y += pthis->actor.gravity;
+	pthis->actor.velocity.y += pthis->actor.gravity * FRAMERATE_SCALER;
 	if(pthis->actor.velocity.y < pthis->actor.minVelocityY)
 	{
 		pthis->actor.velocity.y = pthis->actor.minVelocityY;

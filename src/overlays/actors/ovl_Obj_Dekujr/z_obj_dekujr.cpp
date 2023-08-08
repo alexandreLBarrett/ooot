@@ -133,7 +133,7 @@ void ObjDekujr_ComeUp(ObjDekujr* pthis, GlobalContext* globalCtx)
 				pthis->actor.velocity.x = (finalPos.x - initPos.x) / actionLength;
 				gravity = pthis->actor.gravity;
 				pthis->actor.velocity.y = (finalPos.y - initPos.y) / actionLength;
-				pthis->actor.velocity.y += gravity;
+				pthis->actor.velocity.y += gravity * FRAMERATE_SCALER;
 				if(pthis->actor.velocity.y < pthis->actor.minVelocityY)
 				{
 					pthis->actor.velocity.y = pthis->actor.minVelocityY;

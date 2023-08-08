@@ -305,7 +305,7 @@ void EnIshi_DropCollectible(EnIshi* pthis, GlobalContext* globalCtx)
 
 void EnIshi_Fall(EnIshi* pthis)
 {
-	pthis->actor.velocity.y += pthis->actor.gravity;
+	pthis->actor.velocity.y += pthis->actor.gravity * FRAMERATE_SCALER;
 
 	if(pthis->actor.velocity.y < pthis->actor.minVelocityY)
 	{

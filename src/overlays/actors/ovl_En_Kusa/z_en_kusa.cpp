@@ -164,7 +164,7 @@ void EnKusa_DropCollectible(EnKusa* pthis, GlobalContext* globalCtx)
 
 void EnKusa_UpdateVelY(EnKusa* pthis)
 {
-	pthis->actor.velocity.y += pthis->actor.gravity;
+	pthis->actor.velocity.y += pthis->actor.gravity * FRAMERATE_SCALER;
 
 	if(pthis->actor.velocity.y < pthis->actor.minVelocityY)
 	{

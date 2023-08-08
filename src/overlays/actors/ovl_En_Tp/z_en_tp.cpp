@@ -144,6 +144,7 @@ void EnTp_Init(Actor* thisx, GlobalContext* globalCtx2)
 
 	if(pthis->actor.params <= TAILPASARAN_HEAD)
 	{
+
 		pthis->actor.naviEnemyId = 0x06;
 		pthis->timer = 0;
 		pthis->collider.base.acFlags |= AC_HARD;

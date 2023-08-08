@@ -133,13 +133,13 @@ s32 EffectSpark_Update(void* thisx)
 	{
 		elem = &pthis->elements[i];
 
-		elem->position.x += elem->velocity.x;
-		elem->position.y += elem->velocity.y;
-		elem->position.z += elem->velocity.z;
-		elem->velocity.y += pthis->gravity;
-		elem->unkPosition.x += elem->unkVelocity.x;
-		elem->unkPosition.y += elem->unkVelocity.y;
-		elem->unkPosition.z += elem->unkVelocity.z;
+		elem->position.x += elem->velocity.x * FRAMERATE_SCALER;
+		elem->position.y += elem->velocity.y * FRAMERATE_SCALER;
+		elem->position.z += elem->velocity.z * FRAMERATE_SCALER;
+		elem->velocity.y += pthis->gravity * FRAMERATE_SCALER;
+		elem->unkPosition.x += elem->unkVelocity.x * FRAMERATE_SCALER;
+		elem->unkPosition.y += elem->unkVelocity.y * FRAMERATE_SCALER;
+		elem->unkPosition.z += elem->unkVelocity.z * FRAMERATE_SCALER;
 	}
 
 	pthis->timer++;

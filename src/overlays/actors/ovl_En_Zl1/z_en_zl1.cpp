@@ -461,7 +461,7 @@ void func_80B4B8B4(EnZl1* pthis, GlobalContext* globalCtx)
 			actionLength = (npcAction->endFrame - npcAction->startFrame);
 			pthis->actor.velocity.x = (sp68.x - sp74.x) / actionLength;
 			pthis->actor.velocity.y = (sp68.y - sp74.y) / actionLength;
-			pthis->actor.velocity.y += pthis->actor.gravity;
+			pthis->actor.velocity.y += pthis->actor.gravity * FRAMERATE_SCALER;
 			if(pthis->actor.velocity.y < pthis->actor.minVelocityY)
 			{
 				pthis->actor.velocity.y = pthis->actor.minVelocityY;
@@ -534,7 +534,7 @@ void func_80B4BC78(EnZl1* pthis, GlobalContext* globalCtx)
 			actionLength = (npcAction->endFrame - npcAction->startFrame);
 			pthis->actor.velocity.x = (sp64.x - sp70.x) / actionLength;
 			pthis->actor.velocity.y = (sp64.y - sp70.y) / actionLength;
-			pthis->actor.velocity.y += pthis->actor.gravity;
+			pthis->actor.velocity.y += pthis->actor.gravity * FRAMERATE_SCALER;
 			if(pthis->actor.velocity.y < pthis->actor.minVelocityY)
 			{
 				pthis->actor.velocity.y = pthis->actor.minVelocityY;

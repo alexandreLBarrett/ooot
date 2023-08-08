@@ -223,7 +223,7 @@ void EnGanonMant_UpdateStrand(GlobalContext* globalCtx, EnGanonMant* pthis, Vec3
 			// Calculate position difference
 			gravity = pthis->gravity;
 			x = ((pos->x + vel->x) - (pos - 1)->x) + (backSwayOffset.x + sideSwayOffset.x);
-			y = ((pos->y + vel->y) - (pos - 1)->y) + gravity;
+			y = ((pos->y + vel->y) - (pos - 1)->y) + gravity * FRAMERATE_SCALER;
 			z = ((pos->z + vel->z) - (pos - 1)->z) + (backSwayOffset.z + sideSwayOffset.z);
 
 			// Calculate rotations in the direction of the position difference

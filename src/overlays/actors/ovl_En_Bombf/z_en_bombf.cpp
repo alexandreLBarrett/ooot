@@ -170,7 +170,7 @@ void EnBombf_GrowBomb(EnBombf* pthis, GlobalContext* globalCtx)
 			bombFlower = (EnBombf*)Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_EN_BOMBF, pthis->actor.world.pos.x, pthis->actor.world.pos.y, pthis->actor.world.pos.z, 0, 0, 0, 0);
 			if(bombFlower != NULL)
 			{
-				func_8002F5C4(&pthis->actor, &bombFlower->actor, globalCtx);
+				Actor_PickupBomb(&pthis->actor, &bombFlower->actor, globalCtx);
 				pthis->timer = 180;
 				pthis->flowerBombScale = 0.0f;
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_PL_PULL_UP_ROCK);

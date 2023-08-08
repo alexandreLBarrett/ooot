@@ -151,7 +151,7 @@ s8 func_8002F368(GlobalContext* globalCtx);
 s32 func_8002F434(Actor* actor, GlobalContext* globalCtx, s32 getItemId, f32 xzRange, f32 yRange);
 void func_8002F554(Actor* actor, GlobalContext* globalCtx, s32 getItemId);
 void func_8002F580(Actor* actor, GlobalContext* globalCtx);
-void func_8002F5C4(Actor* actorA, Actor* actorB, GlobalContext* globalCtx);
+void Actor_PickupBomb(Actor* actorA, Actor* actorB, GlobalContext* globalCtx);
 void func_8002F5F0(Actor* actor, GlobalContext* globalCtx);
 void func_8002F698(GlobalContext* globalCtx, Actor* actor, f32 arg2, s16 arg3, f32 arg4, u32 arg5, u32 arg6);
 void func_8002F6D4(GlobalContext* globalCtx, Actor* actor, f32 arg2, s16 arg3, f32 arg4, u32 arg5);

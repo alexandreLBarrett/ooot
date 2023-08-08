@@ -950,7 +950,7 @@ void BossSst_HeadStunned(BossSst* pthis, GlobalContext* globalCtx)
 	Math_StepToF(&sHandOffsets[RIGHT].z, 600.0f, 20.0f);
 	Math_StepToF(&sHandOffsets[LEFT].x, 200.0f, 20.0f);
 	Math_StepToF(&sHandOffsets[RIGHT].x, -200.0f, 20.0f);
-	pthis->actor.velocity.y += pthis->actor.gravity;
+	pthis->actor.velocity.y += pthis->actor.gravity * FRAMERATE_SCALER;
 	animFinish = SkelAnime_Update(&pthis->skelAnime);
 	currentFrame = pthis->skelAnime.curFrame;
 	if(currentFrame <= 6.0f)

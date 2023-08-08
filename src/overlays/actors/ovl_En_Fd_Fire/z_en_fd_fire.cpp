@@ -103,7 +103,7 @@ void EnFdFire_UpdatePos(EnFdFire* pthis, Vec3f* targetPos)
 		pthis->actor.velocity.z = 0.0f;
 	}
 
-	pthis->actor.velocity.y += pthis->actor.gravity;
+	pthis->actor.velocity.y += pthis->actor.gravity * FRAMERATE_SCALER;
 	if(!(pthis->actor.minVelocityY <= pthis->actor.velocity.y))
 	{
 		pthis->actor.velocity.y = pthis->actor.minVelocityY;

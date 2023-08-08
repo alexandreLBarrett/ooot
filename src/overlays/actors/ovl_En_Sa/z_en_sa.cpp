@@ -767,7 +767,7 @@ void func_80AF68E4(EnSa* pthis, GlobalContext* globalCtx)
 			{
 				gravity = 0.0f;
 			}
-			pthis->actor.velocity.y += gravity;
+			pthis->actor.velocity.y += gravity * FRAMERATE_SCALER;
 			if(pthis->actor.velocity.y < pthis->actor.minVelocityY)
 			{
 				pthis->actor.velocity.y = pthis->actor.minVelocityY;

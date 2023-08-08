@@ -5308,7 +5308,7 @@ s32 Camera_Data4(Camera* camera)
 	Camera_Vec3fVecSphGeoAdd(at, eye, &atOffset);
 
 	lookAt = camera->playerPosRot.pos;
-	lookAt.y += playerHeight;
+	lookAt.y += playerHeight * FRAMERATE_SCALER;
 
 	camera->dist = OLib_Vec3fDist(&lookAt, eye);
 	camera->roll = 0;
@@ -6871,7 +6871,7 @@ s32 Camera_Demo4(Camera* camera)
 }
 
 /**
- * Sets up a cutscene for Camera_Uniq9
+ * Sets up a cutscene for Camera_Uniq9 (zelda lullaby in from of darunia)
  */
 s32 Camera_Demo5(Camera* camera)
 {
@@ -7778,7 +7778,7 @@ s32 Camera_Special6(Camera* camera)
 		camera->player->actor.freezeTimer = 12;
 		sCameraInterfaceFlags = (sCameraInterfaceFlags & 0xF0FF) | 0x300;
 		anim->initalPlayerY = playerPosRot->pos.y;
-		anim->animTimer = 12;
+		anim->animTimer = 12 * FRAMERATE_SCALER_INV;
 		*eyeNext = sceneCamPos;
 		if(camera->animState == 0)
 		{

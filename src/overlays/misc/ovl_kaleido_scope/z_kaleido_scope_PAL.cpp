@@ -1227,12 +1227,19 @@ namespace oot::pause
 			m_pageIndexTarget = prev(m_pageIndex)->index();
 		}
 
+		void set_rotation_from_page(GlobalContext* globalCtx)
+		{
+			m_rotation = m_pageIndexTarget * m_pageAngle;
+			m_pageIndex = m_pageIndexTarget;
+			globalCtx->pauseCtx.pageIndex = m_pageIndexTarget;
+		}
+
 		float rotate(GlobalContext* globalCtx)
 		{
 			const float targetRotation = (m_pageIndexTarget * m_pageAngle);
 			const float originalRotation = (m_pageIndex * m_pageAngle);
 
-			if(Math_StepRotationToF(&m_rotation, targetRotation, 4.0f * 30.0f * FRAMERATE_SCALER_INV / framerate_get()))
+			if(Math_StepRotationToF(&m_rotation, targetRotation, 1050 / framerate_get()))
 			{
 				m_pageIndex = m_pageIndexTarget;
 				globalCtx->pauseCtx.pageIndex = m_pageIndexTarget;
@@ -3063,10 +3070,10 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 	void func_808265BC(GlobalContext * globalCtx)
 	{
 		PauseContext* pauseCtx = &globalCtx->pauseCtx;
-		float progress = gPages.rotate(globalCtx);
+		gPages.set_rotation_from_page(globalCtx);
 		pauseCtx->eye = gPages.eye();
 
-		if(progress == 1.0f && pauseCtx->state != 4)
+		if(pauseCtx->state != 4)
 		{
 			func_80084BF4(globalCtx, 1);
 			gSaveContext.buttonStatus[0] = gButtonStates[pauseCtx->pageIndex][0];
@@ -3074,7 +3081,6 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 			gSaveContext.buttonStatus[2] = gButtonStates[pauseCtx->pageIndex][2];
 			gSaveContext.buttonStatus[3] = gButtonStates[pauseCtx->pageIndex][3];
 			gSaveContext.buttonStatus[4] = gButtonStates[pauseCtx->pageIndex][4];
-			// pauseCtx->pageIndex	     = gPages.current()->index();
 			pauseCtx->unk_1E4 = 0;
 			pauseCtx->state++;
 			pauseCtx->alpha = 255;
@@ -3216,9 +3222,9 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 				D_808321A8[3] = gSaveContext.buttonStatus[3];
 				D_808321A8[4] = gSaveContext.buttonStatus[4];
 
-				PAUSE_LEFT_CARET = PAUSE_LEFT_CARET_ORIGINAL_X;
-				PAUSE_RIGHT_CARET = PAUSE_RIGHT_CARET_ORIGINAL_X;
-				PAUSE_ANIMATION_STEPS = 8 * framerate_get() / 30;
+				PAUSE_LEFT_CARET = PAUSE_LEFT_CARET_ORIGINAL_X - 45;
+				PAUSE_RIGHT_CARET = PAUSE_RIGHT_CARET_ORIGINAL_X + 45;
+				PAUSE_ANIMATION_STEPS = 16 * FRAMERATE_SCALER;
 
 				pauseCtx->unk_204 = -314.0f;
 
@@ -3615,32 +3621,37 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 				break;
 
 			case 4:
-				if(gPages.get(0)->flipAngle() == 160.0f)
+				if(gPages.get(0)->flipAngle() > 160.0f)
 				{
+					gPages.get(0)->setFlipAngle(160.0f);
 					KaleidoScope_SetDefaultCursor(globalCtx);
 					KaleidoScope_ProcessPlayerPreRender();
 				}
 
-				gPages.setFlipAngles(gPages.get(0)->flipAngle() - (160.0f / PAUSE_ANIMATION_STEPS));
-				pauseCtx->infoPanelOffsetY += 40 / PAUSE_ANIMATION_STEPS;
-				interfaceCtx->startAlpha += 255 / PAUSE_ANIMATION_STEPS;
-				PAUSE_LEFT_CARET += PAUSE_LEFT_CARET_MOVE / PAUSE_ANIMATION_STEPS;
-				PAUSE_RIGHT_CARET += PAUSE_RIGHT_CARET_MOVE / PAUSE_ANIMATION_STEPS;
-				XREG(5) += 150 / PAUSE_ANIMATION_STEPS;
-				pauseCtx->alpha += (u16)(255 / (PAUSE_ANIMATION_STEPS + WREG(4)));
+				
+				gPages.setFlipAngles(gPages.get(0)->flipAngle() - (160.0f / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER));
+				pauseCtx->infoPanelOffsetY += 40 / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER;
+				interfaceCtx->startAlpha += 255 / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER;
+				PAUSE_LEFT_CARET += PAUSE_LEFT_CARET_MOVE / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER;
+				PAUSE_RIGHT_CARET += PAUSE_RIGHT_CARET_MOVE / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER;
+				XREG(5) += 150 / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER;
+				pauseCtx->alpha += (u16)(255 / (PAUSE_ANIMATION_STEPS + WREG(4)) * FRAMERATE_SCALER);
 
-				if(gPages.get(0)->flipAngle() == 0)
+				if(gPages.get(0)->flipAngle() < 0)
 				{
+					gPages.setFlipAngles(0);
+
 					interfaceCtx->startAlpha = 255;
 					WREG(2) = 0;
 					pauseCtx->state = 5;
 				}
 
+
 				func_808265BC(globalCtx);
 				break;
 
 			case 5:
-				pauseCtx->alpha += (u16)(255 / (PAUSE_ANIMATION_STEPS + WREG(4)));
+				pauseCtx->alpha += (u16)(255 / (PAUSE_ANIMATION_STEPS + WREG(4)) * FRAMERATE_SCALER);
 				func_808265BC(globalCtx);
 				if(pauseCtx->state == 6)
 				{
@@ -3853,9 +3864,9 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 
 					case 3:
 					case 6:
-						pauseCtx->unk_204 += 314.0f / PAUSE_ANIMATION_STEPS;
-						PAUSE_LEFT_CARET += PAUSE_LEFT_CARET_MOVE / PAUSE_ANIMATION_STEPS;
-						PAUSE_RIGHT_CARET += PAUSE_RIGHT_CARET_MOVE / PAUSE_ANIMATION_STEPS;
+						pauseCtx->unk_204 += 314.0f / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER;
+						PAUSE_LEFT_CARET += PAUSE_LEFT_CARET_MOVE / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER;
+						PAUSE_RIGHT_CARET += PAUSE_RIGHT_CARET_MOVE / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER;
 						if(pauseCtx->unk_204 >= -314.0f)
 						{
 							pauseCtx->state = 6;
@@ -3867,17 +3878,18 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 
 					case 2:
 					case 5:
-						if(pauseCtx->unk_204 != (YREG(8) + 160.0f))
+						if(pauseCtx->unk_204 < (YREG(8) + 160.0f))
 						{
-							gPages.setFlipAngles(gPages.get(0)->flipAngle() + (160.0f / PAUSE_ANIMATION_STEPS));
-							pauseCtx->unk_204 += 160.0f / PAUSE_ANIMATION_STEPS;
-							pauseCtx->infoPanelOffsetY -= 40 / PAUSE_ANIMATION_STEPS;
-							PAUSE_LEFT_CARET -= PAUSE_LEFT_CARET_MOVE / PAUSE_ANIMATION_STEPS;
-							PAUSE_RIGHT_CARET -= PAUSE_RIGHT_CARET_MOVE / PAUSE_ANIMATION_STEPS;
-							XREG(5) -= 150 / PAUSE_ANIMATION_STEPS;
-							pauseCtx->alpha -= (u16)(255 / PAUSE_ANIMATION_STEPS);
-							if(pauseCtx->unk_204 == (YREG(8) + 160.0f))
+							gPages.setFlipAngles(gPages.get(0)->flipAngle() + (160.0f / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER));
+							pauseCtx->unk_204 += 160.0f / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER;
+							pauseCtx->infoPanelOffsetY -= 40 / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER;
+							PAUSE_LEFT_CARET -= PAUSE_LEFT_CARET_MOVE / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER;
+							PAUSE_RIGHT_CARET -= PAUSE_RIGHT_CARET_MOVE / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER;
+							XREG(5) -= 150 / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER;
+							pauseCtx->alpha -= (u16)(255 / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER);
+							if(pauseCtx->unk_204 > (YREG(8) + 160.0f))
 							{
+								pauseCtx->unk_204 = (YREG(8) + 160.0f);
 								pauseCtx->alpha = 0;
 							}
 						}
@@ -3889,6 +3901,7 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 							pauseCtx->namedItem = PAUSE_ITEM_NONE;
 							pauseCtx->unk_1E4 = 0;
 							pauseCtx->unk_204 = -434.0f;
+							pauseCtx->alpha = 0;
 						}
 						break;
 				}
@@ -4029,13 +4042,13 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 
 			case 0xD:
 				gPages.setFlipAngles(pauseCtx->unk_204 -= 160.0f);
-				pauseCtx->infoPanelOffsetY += 40 / PAUSE_ANIMATION_STEPS;
-				interfaceCtx->startAlpha += 255 / PAUSE_ANIMATION_STEPS;
+				pauseCtx->infoPanelOffsetY += 40 / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER;
+				interfaceCtx->startAlpha += 255 / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER;
 				VREG(88) -= 3;
-				PAUSE_LEFT_CARET += PAUSE_LEFT_CARET_MOVE / PAUSE_ANIMATION_STEPS;
-				PAUSE_RIGHT_CARET += PAUSE_RIGHT_CARET_MOVE / PAUSE_ANIMATION_STEPS;
-				XREG(5) += 150 / PAUSE_ANIMATION_STEPS;
-				pauseCtx->alpha += (u16)(255 / (PAUSE_ANIMATION_STEPS + WREG(4)));
+				PAUSE_LEFT_CARET += PAUSE_LEFT_CARET_MOVE / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER;
+				PAUSE_RIGHT_CARET += PAUSE_RIGHT_CARET_MOVE / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER;
+				XREG(5) += 150 / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER;
+				pauseCtx->alpha += (u16)(255 / (PAUSE_ANIMATION_STEPS + WREG(4)) * FRAMERATE_SCALER);
 				if(pauseCtx->unk_204 < -628.0f)
 				{
 					pauseCtx->unk_204 = -628.0f;
@@ -4197,17 +4210,18 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 				break;
 
 			case 0x12:
-				if(gPages.get(0)->flipAngle() != 160.0f)
+				if(gPages.get(0)->flipAngle() < 160.0f)
 				{
-					gPages.setFlipAngles(gPages.get(1)->flipAngle() + (160.0f / PAUSE_ANIMATION_STEPS));
-					pauseCtx->infoPanelOffsetY -= 40 / PAUSE_ANIMATION_STEPS;
-					interfaceCtx->startAlpha -= 255 / PAUSE_ANIMATION_STEPS;
-					PAUSE_LEFT_CARET -= PAUSE_LEFT_CARET_MOVE / PAUSE_ANIMATION_STEPS;
-					PAUSE_RIGHT_CARET -= PAUSE_RIGHT_CARET_MOVE / PAUSE_ANIMATION_STEPS;
-					XREG(5) -= 150 / PAUSE_ANIMATION_STEPS;
-					pauseCtx->alpha -= (u16)(255 / PAUSE_ANIMATION_STEPS);
-					if(gPages.get(0)->flipAngle() == 160.0f)
+					gPages.setFlipAngles(gPages.get(0)->flipAngle() + (160.0f / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER));
+					pauseCtx->infoPanelOffsetY -= 40 / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER;
+					interfaceCtx->startAlpha -= 255 / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER;
+					PAUSE_LEFT_CARET -= PAUSE_LEFT_CARET_MOVE / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER;
+					PAUSE_RIGHT_CARET -= PAUSE_RIGHT_CARET_MOVE / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER;
+					XREG(5) -= 150 / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER;
+					pauseCtx->alpha -= (u16)(255 / PAUSE_ANIMATION_STEPS * FRAMERATE_SCALER);
+					if(gPages.get(0)->flipAngle() > 160.0f)
 					{
+						gPages.setFlipAngles(160.0f);
 						pauseCtx->alpha = 0;
 					}
 				}

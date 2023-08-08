@@ -88,7 +88,7 @@ void ItemOcarina_Fly(ItemOcarina* pthis, GlobalContext* globalCtx)
 
 	if(pthis->actor.minVelocityY < pthis->actor.velocity.y)
 	{
-		pthis->actor.velocity.y += pthis->actor.gravity;
+		pthis->actor.velocity.y += pthis->actor.gravity * FRAMERATE_SCALER;
 		if(pthis->actor.velocity.y < pthis->actor.minVelocityY)
 		{
 			pthis->actor.velocity.y = pthis->actor.minVelocityY;
@@ -146,7 +146,7 @@ void func_80B864EC(ItemOcarina* pthis, GlobalContext* globalCtx)
 
 	if(pthis->actor.minVelocityY < pthis->actor.velocity.y)
 	{
-		pthis->actor.velocity.y += pthis->actor.gravity;
+		pthis->actor.velocity.y += pthis->actor.gravity * FRAMERATE_SCALER;
 
 		if(pthis->actor.velocity.y < pthis->actor.minVelocityY)
 		{

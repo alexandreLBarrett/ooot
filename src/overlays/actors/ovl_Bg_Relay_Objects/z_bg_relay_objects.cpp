@@ -183,7 +183,7 @@ void func_808A91AC(BgRelayObjects* pthis, GlobalContext* globalCtx)
 
 void func_808A9234(BgRelayObjects* pthis, GlobalContext* globalCtx)
 {
-	pthis->dyna.actor.velocity.y += pthis->dyna.actor.gravity;
+	pthis->dyna.actor.velocity.y += pthis->dyna.actor.gravity * FRAMERATE_SCALER;
 	if(Math_StepToF(&pthis->dyna.actor.world.pos.y, pthis->dyna.actor.home.pos.y, pthis->dyna.actor.velocity.y))
 	{
 		Rumble_Shake(pthis->dyna.actor.xyzDistToPlayerSq, 180, 20, 100);

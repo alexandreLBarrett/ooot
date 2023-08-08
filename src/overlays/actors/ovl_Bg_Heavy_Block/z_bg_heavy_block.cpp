@@ -184,7 +184,7 @@ void BgHeavyBlock_MovePiece(BgHeavyBlock* pthis, GlobalContext* globalCtx)
 {
 	Actor* thisx = &pthis->dyna.actor;
 
-	thisx->velocity.y += thisx->gravity;
+	thisx->velocity.y += thisx->gravity * FRAMERATE_SCALER;
 
 	if(thisx->velocity.y < thisx->minVelocityY)
 	{

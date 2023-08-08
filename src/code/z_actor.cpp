@@ -1917,7 +1917,7 @@ u32 Actor_HasNoParent(Actor* actor, GlobalContext* globalCtx)
 	}
 }
 
-void func_8002F5C4(Actor* actorA, Actor* actorB, GlobalContext* globalCtx)
+void Actor_PickupBomb(Actor* actorA, Actor* actorB, GlobalContext* globalCtx)
 {
 	Actor* parent = actorA->parent;
 
