@@ -997,7 +997,7 @@ void func_80A9877C(EnKo* pthis, GlobalContext* globalCtx)
 			return;
 		}
 	}
-	if(func_800343CC(globalCtx, &pthis->actor, &pthis->unk_1E8.unk_00, pthis->lookDist, func_80A97610, func_80A97738) && ENKO_TYPE == ENKO_TYPE_CHILD_FADO && globalCtx->sceneNum == SCENE_SPOT10)
+	if(Actor_UpdateTalkRequest(globalCtx, &pthis->actor, &pthis->unk_1E8.unk_00, pthis->lookDist, func_80A97610, func_80A97738) && ENKO_TYPE == ENKO_TYPE_CHILD_FADO && globalCtx->sceneNum == SCENE_SPOT10)
 	{
 		pthis->actor.textId = INV_CONTENT(ITEM_TRADE_ADULT) > ITEM_ODD_POTION ? 0x10B9 : 0x10DF;
 

@@ -741,7 +741,7 @@ void func_80A3F908(EnGo* pthis, GlobalContext* globalCtx)
 		}
 		else
 		{
-			isUnkCondition = func_800343CC(globalCtx, &pthis->actor, &pthis->unk_1E0.unk_00, float1, EnGo_GetTextID, EnGo_SetFlagsGetStates);
+			isUnkCondition = Actor_UpdateTalkRequest(globalCtx, &pthis->actor, &pthis->unk_1E0.unk_00, float1, EnGo_GetTextID, EnGo_SetFlagsGetStates);
 		}
 
 		if(((pthis->actor.params & 0xF0) == 0x90) && (isUnkCondition == true))

@@ -1106,7 +1106,7 @@ void EnIn_Update(Actor* thisx, GlobalContext* globalCtx)
 		}
 		else
 		{
-			func_800343CC(globalCtx, &pthis->actor, &pthis->unk_308.unk_00, ((pthis->actor.targetMode == 6) ? 80.0f : 320.0f) + pthis->collider.dim.radius, func_80A79168, func_80A79500);
+			Actor_UpdateTalkRequest(globalCtx, &pthis->actor, &pthis->unk_308.unk_00, ((pthis->actor.targetMode == 6) ? 80.0f : 320.0f) + pthis->collider.dim.radius, func_80A79168, func_80A79500);
 			if(pthis->unk_308.unk_00 != 0)
 			{
 				pthis->unk_1FA = pthis->unk_1F8;

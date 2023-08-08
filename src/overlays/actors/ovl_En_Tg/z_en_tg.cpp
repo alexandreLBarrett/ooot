@@ -173,7 +173,7 @@ void EnTg_Update(Actor* thisx, GlobalContext* globalCtx)
 	Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 0.0f, 0.0f, 0.0f, 4);
 	pthis->actionFunc(pthis, globalCtx);
 	temp = pthis->collider.dim.radius + 30.0f;
-	func_800343CC(globalCtx, &pthis->actor, &pthis->isTalking, temp, EnTg_GetTextId, EnTg_OnTextComplete);
+	Actor_UpdateTalkRequest(globalCtx, &pthis->actor, &pthis->isTalking, temp, EnTg_GetTextId, EnTg_OnTextComplete);
 }
 
 s32 EnTg_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx)

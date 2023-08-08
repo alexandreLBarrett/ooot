@@ -339,7 +339,7 @@ void EnMa3_Update(Actor* thisx, GlobalContext* globalCtx)
 	EnMa3_UpdateEyes(pthis);
 	pthis->actionFunc(pthis, globalCtx);
 	func_80AA2E54(pthis, globalCtx);
-	func_800343CC(globalCtx, &pthis->actor, &pthis->unk_1E0.unk_00, (f32)pthis->collider.dim.radius + 150.0f, func_80AA2AA0, func_80AA2BD4);
+	Actor_UpdateTalkRequest(globalCtx, &pthis->actor, &pthis->unk_1E0.unk_00, (f32)pthis->collider.dim.radius + 150.0f, func_80AA2AA0, func_80AA2BD4);
 	if(pthis->unk_1E0.unk_00 == 0)
 	{
 		if(pthis->unk_20A != 0)

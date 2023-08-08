@@ -691,7 +691,7 @@ void EnDu_Update(Actor* thisx, GlobalContext* globalCtx)
 
 	if(pthis->actionFunc != func_809FE4A4)
 	{
-		func_800343CC(globalCtx, &pthis->actor, &pthis->unk_1F4.unk_00, pthis->collider.dim.radius + 116.0f, func_809FDC38, func_809FDCDC);
+		Actor_UpdateTalkRequest(globalCtx, &pthis->actor, &pthis->unk_1F4.unk_00, pthis->collider.dim.radius + 116.0f, func_809FDC38, func_809FDCDC);
 	}
 	pthis->actionFunc(pthis, globalCtx);
 }

@@ -488,7 +488,7 @@ void EnMa1_Update(Actor* thisx, GlobalContext* globalCtx)
 	pthis->actionFunc(pthis, globalCtx);
 	if(pthis->actionFunc != EnMa1_DoNothing)
 	{
-		func_800343CC(globalCtx, &pthis->actor, &pthis->unk_1E8.unk_00, (f32)pthis->collider.dim.radius + 30.0f, EnMa1_GetText, func_80AA0778);
+		Actor_UpdateTalkRequest(globalCtx, &pthis->actor, &pthis->unk_1E8.unk_00, (f32)pthis->collider.dim.radius + 30.0f, EnMa1_GetText, func_80AA0778);
 	}
 	func_80AA0B74(pthis);
 	func_80AA0AF4(pthis, globalCtx);

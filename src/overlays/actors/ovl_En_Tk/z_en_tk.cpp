@@ -632,7 +632,7 @@ void EnTk_Rest(EnTk* pthis, GlobalContext* globalCtx)
 			return;
 		}
 
-		func_800343CC(globalCtx, &pthis->actor, &pthis->h_1E0, pthis->collider.dim.radius + 30.0f, func_80B1C54C, func_80B1C5A0);
+		Actor_UpdateTalkRequest(globalCtx, &pthis->actor, &pthis->h_1E0, pthis->collider.dim.radius + 30.0f, func_80B1C54C, func_80B1C5A0);
 	}
 	else if(EnTk_CheckFacingPlayer(pthis))
 	{
@@ -641,7 +641,7 @@ void EnTk_Rest(EnTk* pthis, GlobalContext* globalCtx)
 		v1 = pthis->actor.yawTowardsPlayer - v1;
 
 		pthis->actionCountdown = 0;
-		func_800343CC(globalCtx, &pthis->actor, &pthis->h_1E0, pthis->collider.dim.radius + 30.0f, func_80B1C54C, func_80B1C5A0);
+		Actor_UpdateTalkRequest(globalCtx, &pthis->actor, &pthis->h_1E0, pthis->collider.dim.radius + 30.0f, func_80B1C54C, func_80B1C5A0);
 	}
 	else if(Actor_ProcessTalkRequest(&pthis->actor, globalCtx))
 	{

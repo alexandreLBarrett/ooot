@@ -187,7 +187,7 @@ void EnMu_Update(Actor* thisx, GlobalContext* globalCtx)
 	Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 0.0f, 0.0f, 0.0f, 4);
 	pthis->actionFunc(pthis, globalCtx);
 	talkDist = pthis->collider.dim.radius + 30.0f;
-	func_800343CC(globalCtx, &pthis->actor, &pthis->npcInfo.unk_00, talkDist, EnMu_GetFaceReaction, EnMu_CheckDialogState);
+	Actor_UpdateTalkRequest(globalCtx, &pthis->actor, &pthis->npcInfo.unk_00, talkDist, EnMu_GetFaceReaction, EnMu_CheckDialogState);
 
 	pthis->actor.focus.pos = pthis->actor.world.pos;
 	pthis->actor.focus.pos.y += 60.0f;

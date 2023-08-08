@@ -90,13 +90,13 @@ struct EnGo2
 	/* 0x0214 */ u8 eyeTexIndex;
 	/* 0x0215 */ u8 mouthTexIndex;
 	/* 0x0216 */ u8 unk_216; // Set to z rotation, checked by waypoint
-	/* 0x0218 */ f32 unk_218;
+	/* 0x0218 */ f32 interract_range;
 	/* 0x021C */ char unk_21C[0x04];
 	/* 0x0220 */ f32 alpha; // Set to 0, used by func_80A45360, smoothed to this->actor.shape.cutsceneCamera from either 0 or 255.0f
 	/* 0x0224 */ Timer blinkTimer;
 	/* 0x0226 */ s16 unk_226[18]; // Remains unknown
 	/* 0x024A */ s16 unk_24A[18]; // Remains unknown
-	/* 0x026E */ u16 unk_26E;     // Remains unknown = 1, 2, or 4: used in func_80034A14
+	/* 0x026E */ u16 talkReadiness;     // Talk ready status: 2 = ready to talk, 1 = not ready, 4 = talking
 	/* 0x0270 */ EnGoEffect dustEffects[10];
 	/* 0x04A0 */ Vec3f eye;
 	/* 0x04AC */ Vec3f at;
@@ -108,4 +108,11 @@ struct EnGo2
 	/* 0x0598 */ char unk_598[0x02];
 	/* 0x059A */ s16 camId;
 	/* 0x059C */ s16 unk_59C;
+};
+
+enum EnGo2_TalkStates
+{
+	GORON_TALK_NOT_READY = 1 >> 0,
+	GORON_TALK_READY = 1 >> 1,
+	GORON_TALK_TALKING = 1 >> 2,
 };

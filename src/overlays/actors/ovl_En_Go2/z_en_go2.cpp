@@ -974,11 +974,11 @@ s16 EnGo2_GetState(GlobalContext* globalCtx, Actor* thisx)
 	return 0;
 }
 
-s32 func_80A44790(EnGo2* pthis, GlobalContext* globalCtx)
+s32 EnGo2_UpdateTalkRequest(EnGo2* pthis, GlobalContext* globalCtx)
 {
 	if((pthis->actor.params & 0x1F) != GORON_DMT_BIGGORON && (pthis->actor.params & 0x1F) != GORON_CITY_ROLLING_BIG)
 	{
-		return func_800343CC(globalCtx, &pthis->actor, &pthis->unk_194.unk_00, pthis->unk_218, EnGo2_GetTextId, EnGo2_GetState);
+		return Actor_UpdateTalkRequest(globalCtx, &pthis->actor, &pthis->unk_194.unk_00, pthis->interract_range, EnGo2_GetTextId, EnGo2_GetState);
 	}
 	else if(((pthis->actor.params & 0x1F) == GORON_DMT_BIGGORON) && ((pthis->collider.base.ocFlags2 & 1) == 0))
 	{
@@ -996,7 +996,7 @@ s32 func_80A44790(EnGo2* pthis, GlobalContext* globalCtx)
 			pthis->unk_194.unk_00 = EnGo2_GetState(globalCtx, &pthis->actor);
 			return false;
 		}
-		else if(func_8002F2CC(&pthis->actor, globalCtx, pthis->unk_218))
+		else if(func_8002F2CC(&pthis->actor, globalCtx, pthis->interract_range))
 		{
 			pthis->actor.textId = EnGo2_GetTextId(globalCtx, &pthis->actor);
 		}
@@ -1019,8 +1019,8 @@ void EnGo2_SetShape(EnGo2* pthis)
 	pthis->actor.shape.shadowScale = D_80A481F8[index].shape_unk_10;
 	Actor_SetScale(&pthis->actor, D_80A481F8[index].scale);
 	pthis->actor.targetMode = D_80A481F8[index].actor_unk_1F;
-	pthis->unk_218 = D_80A481F8[index].unk_218;
-	pthis->unk_218 += pthis->collider.dim.radius;
+	pthis->interract_range = D_80A481F8[index].unk_218;
+	pthis->interract_range += pthis->collider.dim.radius;
 }
 
 void EnGo2_CheckCollision(EnGo2* pthis, GlobalContext* globalCtx)
@@ -1332,18 +1332,18 @@ void func_80A45288(EnGo2* pthis, GlobalContext* globalCtx)
 		pthis->unk_194.position = player->actor.world.pos;
 		linkAge = gSaveContext.linkAge;
 		pthis->unk_194.height = D_80A482D8[pthis->actor.params & 0x1F][linkAge];
-		func_80034A14(&pthis->actor, &pthis->unk_194, 4, pthis->unk_26E);
+		func_80034A14(&pthis->actor, &pthis->unk_194, 4, pthis->talkReadiness);
 	}
 	if((pthis->actionFunc != EnGo2_SetGetItem) && (pthis->isAwake == true))
 	{
-		if(func_80A44790(pthis, globalCtx))
+		if(EnGo2_UpdateTalkRequest(pthis, globalCtx))
 		{
 			EnGo2_BiggoronSetTextId(pthis, globalCtx, player);
 		}
 	}
 }
 
-void func_80A45360(EnGo2* pthis, f32* alpha)
+void EnGo2_CalculateShadowAlpha(EnGo2* pthis, f32* alpha)
 {
 	f32 alphaTarget = (pthis->skelAnime.animation == &gGoronAnim_004930) && (pthis->skelAnime.curFrame <= 32.0f) ? 0.0f : 255.0f;
 
@@ -1443,16 +1443,16 @@ void EnGo2_Awake(EnGo2* pthis)
 {
 	if(EnGo2_IsWakingUp(pthis))
 	{
-		pthis->unk_26E = 2;
+		pthis->talkReadiness = GORON_TALK_READY;
 	}
 	else
 	{
-		pthis->unk_26E = 1;
+		pthis->talkReadiness = GORON_TALK_NOT_READY;
 	}
 
 	if(pthis->unk_194.unk_00 != 0)
 	{
-		pthis->unk_26E = 4;
+		pthis->talkReadiness = GORON_TALK_TALKING;
 	}
 
 	pthis->isAwake = true;
@@ -1464,10 +1464,10 @@ void EnGo2_WakingUp(EnGo2* pthis)
 	s32 isTrue = true;
 
 	xyzDist = SQ(xyzDist);
-	pthis->unk_26E = 1;
+	pthis->talkReadiness = GORON_TALK_NOT_READY;
 	if((pthis->actor.xyzDistToPlayerSq <= xyzDist) || (pthis->unk_194.unk_00 != 0))
 	{
-		pthis->unk_26E = 4;
+		pthis->talkReadiness = GORON_TALK_TALKING;
 	}
 
 	pthis->isAwake = isTrue;
@@ -1477,12 +1477,12 @@ void EnGo2_BiggoronWakingUp(EnGo2* pthis)
 {
 	if(EnGo2_IsWakingUp(pthis) || pthis->unk_194.unk_00 != 0)
 	{
-		pthis->unk_26E = 2;
+		pthis->talkReadiness = GORON_TALK_READY;
 		pthis->isAwake = true;
 	}
 	else
 	{
-		pthis->unk_26E = 1;
+		pthis->talkReadiness = GORON_TALK_NOT_READY;
 		pthis->isAwake = false;
 	}
 }
@@ -1493,7 +1493,7 @@ void EnGo2_SelectGoronWakingUp(EnGo2* pthis)
 	{
 		case GORON_DMT_BOMB_FLOWER:
 			pthis->isAwake = true;
-			pthis->unk_26E = EnGo2_IsWakingUp(pthis) ? 2 : 1;
+			pthis->talkReadiness = EnGo2_IsWakingUp(pthis) ? 2 : 1;
 			break;
 		case GORON_FIRE_GENERIC:
 			EnGo2_WakingUp(pthis);
@@ -1596,7 +1596,7 @@ void EnGo2_RollingAnimation(EnGo2* pthis, GlobalContext* globalCtx)
 		pthis->skelAnime.playSpeed = -1.0f;
 	}
 	EnGo2_SwapInitialFrameAnimFrameCount(pthis);
-	pthis->unk_26E = 1;
+	pthis->talkReadiness = GORON_TALK_NOT_READY;
 	pthis->unk_211 = false;
 	pthis->isAwake = false;
 	pthis->actionFunc = EnGo2_CurledUp;
@@ -1711,7 +1711,7 @@ s32 EnGo2_IsGoronDmtBombFlower(EnGo2* pthis)
 	func_80034EC0(&pthis->skelAnime, sAnimations, 3);
 	pthis->unk_194.unk_00 = 0;
 	pthis->isAwake = false;
-	pthis->unk_26E = 1;
+	pthis->talkReadiness = GORON_TALK_NOT_READY;
 	pthis->actionFunc = EnGo2_GoronDmtBombFlowerAnimation;
 	return true;
 }
@@ -1879,7 +1879,7 @@ void EnGo2_Init(Actor* thisx, GlobalContext* globalCtx)
 	pthis->goronState = 0;
 	pthis->waypoint = 0;
 	pthis->unk_216 = pthis->actor.shape.rot.z;
-	pthis->unk_26E = 1;
+	pthis->talkReadiness = GORON_TALK_NOT_READY;
 	pthis->path = Path_GetByIndex(globalCtx, (pthis->actor.params & 0x3E0) >> 5, 0x1F);
 	switch(pthis->actor.params & 0x1F)
 	{
@@ -2218,7 +2218,7 @@ void EnGo2_BiggoronEyedrops(EnGo2* pthis, GlobalContext* globalCtx)
 			func_80034EC0(&pthis->skelAnime, sAnimations, 5);
 			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			pthis->actor.shape.rot.y += 0x5B0;
-			pthis->unk_26E = 1;
+			pthis->talkReadiness = GORON_TALK_NOT_READY;
 			pthis->animTimer = pthis->skelAnime.endFrame + 60.0f + 60.0f; // eyeDrops animation timer
 			pthis->eyeMouthTexState = 2;
 			pthis->unk_20C = 0;
@@ -2254,7 +2254,7 @@ void EnGo2_BiggoronEyedrops(EnGo2* pthis, GlobalContext* globalCtx)
 			{
 				func_80034EC0(&pthis->skelAnime, sAnimations, 1);
 				pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
-				pthis->unk_26E = 2;
+				pthis->talkReadiness = GORON_TALK_READY;
 				pthis->skelAnime.playSpeed = 0.0f;
 				pthis->skelAnime.curFrame = pthis->skelAnime.endFrame;
 				EnGo2_GetItem(pthis, globalCtx, GI_CLAIM_CHECK);
@@ -2295,7 +2295,7 @@ void EnGo2_GoronLinkStopRolling(EnGo2* pthis, GlobalContext* globalCtx)
 	else
 	{
 		gSaveContext.infTable[16] |= 0x1000;
-		pthis->unk_26E = 1;
+		pthis->talkReadiness = GORON_TALK_NOT_READY;
 		pthis->unk_211 = false;
 		pthis->isAwake = false;
 		pthis->actionFunc = EnGo2_CurledUp;
@@ -2388,7 +2388,7 @@ void EnGo2_Update(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnGo2* pthis = (EnGo2*)thisx;
 
-	func_80A45360(pthis, &pthis->alpha);
+	EnGo2_CalculateShadowAlpha(pthis, &pthis->alpha);
 	EnGo2_SitDownAnimation(pthis);
 	SkelAnime_Update(&pthis->skelAnime);
 	EnGo2_RollForward(pthis);

@@ -803,7 +803,7 @@ void func_80A70978(EnHy* pthis, GlobalContext* globalCtx)
 
 	func_80034A14(&pthis->actor, &pthis->unk_1E8, sInit1Info[pthis->actor.params & 0x7F].unkPresetIndex, phi_a3);
 
-	if(func_800343CC(globalCtx, &pthis->actor, &pthis->unk_1E8.unk_00, pthis->unkRange, func_80A6F810, func_80A70058))
+	if(Actor_UpdateTalkRequest(globalCtx, &pthis->actor, &pthis->unk_1E8.unk_00, pthis->unkRange, func_80A6F810, func_80A70058))
 	{
 		func_80A70834(pthis, globalCtx);
 	}

@@ -584,7 +584,7 @@ void EnZo_Dialog(EnZo* pthis, GlobalContext* globalCtx)
 	func_80034A14(&pthis->actor, &pthis->unk_194, 11, pthis->unk_64C);
 	if(pthis->canSpeak == true)
 	{
-		func_800343CC(globalCtx, &pthis->actor, &pthis->unk_194.unk_00, pthis->dialogRadius, func_80B61024, func_80B61298);
+		Actor_UpdateTalkRequest(globalCtx, &pthis->actor, &pthis->unk_194.unk_00, pthis->dialogRadius, func_80B61024, func_80B61298);
 	}
 }
 

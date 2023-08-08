@@ -1994,6 +1994,7 @@ s32 Camera_Normal1(Camera* camera)
 }
 
 // rotating follow camera in specific locations
+// Example: House with ramp in kokiri forest
 s32 Camera_Normal2(Camera* camera)
 {
 	Vec3f* eye = &camera->eye;
@@ -4833,6 +4834,7 @@ s32 Camera_Fixed3(Camera* camera)
 /**
  * camera follow player, eye is in a fixed offset of the previous eye, and a value
  * specified in the scene.
+ * example: Link's house balcony
  */
 s32 Camera_Fixed4(Camera* camera)
 {
@@ -5004,7 +5006,7 @@ s32 Camera_Subj3(Camera* camera)
 	tsph.pitch = anim->pitch;
 	if(anim->animTimer != 0)
 	{
-		temp_f0_3 = (1.0f / anim->animTimer);
+		temp_f0_3 = (1.0f / anim->animTimer) * FRAMERATE_SCALER_INV;
 		pad2 = at;
 		at->x = at->x + (sp98.x - pad2->x) * temp_f0_3;
 		at->y = at->y + (sp98.y - pad2->y) * temp_f0_3;
@@ -5064,6 +5066,7 @@ s32 Camera_Subj3(Camera* camera)
 	return 1;
 }
 
+// Tunnel cam
 s32 Camera_Subj4(Camera* camera)
 {
 	Vec3f* eye = &camera->eye;
@@ -5108,7 +5111,7 @@ s32 Camera_Subj4(Camera* camera)
 
 	OLib_Vec3fDiffToVecSphGeo(&sp5C, at, eye);
 	sCameraInterfaceFlags = subj4->interfaceFlags;
-	if(camera->animState == 0)
+	if(camera->animState == 0) // Entering tunnel
 	{
 		spA4 = Camera_GetCamBgDataUnderPlayer(camera, &spAA);
 		if(spA4)
@@ -5128,26 +5131,27 @@ s32 Camera_Subj4(Camera* camera)
 		sp88 = OLib_Vec3fDist(&playerPosRot->pos, &anim->unk_00.a);
 		if(OLib_Vec3fDist(&playerPosRot->pos, &sp98) < sp88)
 		{
-			anim->unk_00.b.x = anim->unk_00.a.x - sp98.x;
-			anim->unk_00.b.y = anim->unk_00.a.y - sp98.y;
-			anim->unk_00.b.z = anim->unk_00.a.z - sp98.z;
+			anim->unk_00.b.x = (anim->unk_00.a.x - sp98.x) * FRAMERATE_SCALER;
+			anim->unk_00.b.y = (anim->unk_00.a.y - sp98.y) * FRAMERATE_SCALER;
+			anim->unk_00.b.z = (anim->unk_00.a.z - sp98.z) * FRAMERATE_SCALER;
 			anim->unk_00.a = sp98;
 		}
 		else
 		{
-			anim->unk_00.b.x = sp98.x - anim->unk_00.a.x;
-			anim->unk_00.b.y = sp98.y - anim->unk_00.a.y;
-			anim->unk_00.b.z = sp98.z - anim->unk_00.a.z;
+			anim->unk_00.b.x = (sp98.x - anim->unk_00.a.x) * FRAMERATE_SCALER;
+			anim->unk_00.b.y = (sp98.y - anim->unk_00.a.y) * FRAMERATE_SCALER;
+			anim->unk_00.b.z = (sp98.z - anim->unk_00.a.z) * FRAMERATE_SCALER;
 			sp64.yaw = BINANG_ROT180(sp64.yaw);
 		}
 		anim->unk_30 = sp64.yaw;
-		anim->unk_32 = 0xA;
+		anim->unk_32 = 0xA * FRAMERATE_SCALER_INV;
 		anim->unk_2C = 0;
 		anim->unk_2E = false;
 		anim->unk_28 = 0.0f;
 		camera->animState++;
 	}
 
+	// Camera going to target
 	if(anim->unk_32 != 0)
 	{
 		sp64.r = 10.0f;
@@ -5155,7 +5159,7 @@ s32 Camera_Subj4(Camera* camera)
 		sp64.yaw = anim->unk_30;
 		Camera_Vec3fVecSphGeoAdd(&sp8C, &sp6C.pos, &sp64);
 		sp88 = (anim->unk_32 + 1.0f);
-		at->x += (sp8C.x - at->x) / sp88;
+		at->x += ((sp8C.x - at->x) / sp88);
 		at->y += (sp8C.y - at->y) / sp88;
 		at->z += (sp8C.z - at->z) / sp88;
 		sp5C.r -= (sp5C.r / sp88);
@@ -5170,18 +5174,17 @@ s32 Camera_Subj4(Camera* camera)
 	{
 		return false;
 	}
-
 	Actor_GetWorldPosShapeRot(&sp6C, &camera->player->actor);
 	Math3D_LineClosestToPoint(&anim->unk_00, &sp6C.pos, eyeNext);
-	at->x = eyeNext->x + anim->unk_00.b.x;
-	at->y = eyeNext->y + anim->unk_00.b.y;
-	at->z = eyeNext->z + anim->unk_00.b.z;
+	at->x = (eyeNext->x + anim->unk_00.b.x);
+	at->y = (eyeNext->y + anim->unk_00.b.y);
+	at->z = (eyeNext->z + anim->unk_00.b.z);
 	*eye = *eyeNext;
 	sp64.yaw = anim->unk_30;
 	sp64.r = 5.0f;
 	sp64.pitch = 0x238C;
 	Camera_Vec3fVecSphGeoAdd(&sp98, eyeNext, &sp64);
-	anim->unk_2C += 0xBB8;
+	anim->unk_2C += 0xBB8 * FRAMERATE_SCALER;
 	temp_f16 = Math_CosS(anim->unk_2C);
 	eye->x += (sp98.x - eye->x) * fabsf(temp_f16);
 	eye->y += (sp98.y - eye->y) * fabsf(temp_f16);
@@ -5651,6 +5654,7 @@ s32 Camera_Unique3(Camera* camera)
 /**
  * Camera's eye is specified by scene camera data, at point is generated at the intersection
  * of the eye to the player
+ * example: Exiting kokiri shop
  */
 s32 Camera_Unique0(Camera* camera)
 {
@@ -6715,7 +6719,7 @@ s32 Camera_Demo3(Camera* camera)
 			camera->animState = 0xA;
 			break;
 		case 1:
-			temp_f0 = (anim->animFrame - 2) * (1.0f / 146.0f);
+			temp_f0 = (anim->animFrame - 2) * (1.0f / 146.0f) * FRAMERATE_SCALER;
 
 			sp5C.x = F32_LERPIMP(D_8011D678[0].x, D_8011D678[1].x, temp_f0);
 			sp5C.y = F32_LERPIMP(D_8011D678[0].y, D_8011D678[1].y, temp_f0);
@@ -7280,6 +7284,7 @@ s32 Camera_Demo8(Camera* camera)
  * Camera follows points specified by demo9.atPoints and demo9.eyePoints, allows finer control
  * over the final eye and at points than Camera_Demo1, by allowing the interpolated at and eye points
  * to be relative to the main camera's player, the current camera's player, or the main camera's target
+ * example: exiting tunnel in Kokiri forest
  */
 s32 Camera_Demo9(Camera* camera)
 {

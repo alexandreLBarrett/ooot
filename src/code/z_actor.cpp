@@ -361,7 +361,7 @@ void func_8002BF60(TargetContext* targetCtx, Actor* actor, s32 actorCategory, Gl
 	targetCtx->naviOuter.a = naviColor->outer.a;
 }
 
-void func_8002C0C0(TargetContext* targetCtx, Actor* actor, GlobalContext* globalCtx)
+void Target_Init(TargetContext* targetCtx, Actor* actor, GlobalContext* globalCtx)
 {
 	targetCtx->arrowPointedActor = NULL;
 	targetCtx->targetedActor = NULL;
@@ -2351,7 +2351,7 @@ void Actor_InitContext(GlobalContext* globalCtx, ActorContext* actorCtx, ActorEn
 	actorCtx->absoluteSpace = NULL;
 
 	Actor_SpawnEntry(actorCtx, actorEntry, globalCtx);
-	func_8002C0C0(&actorCtx->targetCtx, actorCtx->actorLists[ACTORCAT_PLAYER].head, globalCtx);
+	Target_Init(&actorCtx->targetCtx, actorCtx->actorLists[ACTORCAT_PLAYER].head, globalCtx);
 	func_8002FA60(globalCtx);
 }
 
@@ -4238,7 +4238,7 @@ Hilite* func_8003435C(Vec3f* object, GlobalContext* globalCtx)
 	return func_8002EB44(object, &globalCtx->view.eye, &lightDir, globalCtx->gfxCtx);
 }
 
-s32 func_800343CC(GlobalContext* globalCtx, Actor* actor, s16* arg2, f32 interactRange, callback1_800343CC unkFunc1, callback2_800343CC unkFunc2)
+s32 Actor_UpdateTalkRequest(GlobalContext* globalCtx, Actor* actor, s16* arg2, f32 interactRange, callback1_800343CC unkFunc1, callback2_800343CC unkFunc2)
 {
 	s16 x;
 	s16 y;

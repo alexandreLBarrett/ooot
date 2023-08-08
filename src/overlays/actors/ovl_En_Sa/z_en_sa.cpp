@@ -209,7 +209,7 @@ void func_80AF57D8(EnSa* pthis, GlobalContext* globalCtx)
 {
 	if(globalCtx->sceneNum != SCENE_SPOT05 || ABS((s16)(pthis->actor.yawTowardsPlayer - pthis->actor.shape.rot.y)) < 0x1555 || pthis->unk_1E0.unk_00 != 0)
 	{
-		func_800343CC(globalCtx, &pthis->actor, &pthis->unk_1E0.unk_00, pthis->collider.dim.radius + 30.0f, func_80AF55E0, func_80AF56F4);
+		Actor_UpdateTalkRequest(globalCtx, &pthis->actor, &pthis->unk_1E0.unk_00, pthis->collider.dim.radius + 30.0f, func_80AF55E0, func_80AF56F4);
 	}
 }
 

@@ -382,7 +382,7 @@ void EnMa2_Update(Actor* thisx, GlobalContext* globalCtx)
 	func_80AA1AE4(pthis, globalCtx);
 	if(pthis->actionFunc != func_80AA20E4)
 	{
-		func_800343CC(globalCtx, &pthis->actor, &pthis->unk_1E0.unk_00, (f32)pthis->collider.dim.radius + 30.0f, func_80AA19A0, func_80AA1A38);
+		Actor_UpdateTalkRequest(globalCtx, &pthis->actor, &pthis->unk_1E0.unk_00, (f32)pthis->collider.dim.radius + 30.0f, func_80AA19A0, func_80AA1A38);
 	}
 }
 

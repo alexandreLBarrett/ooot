@@ -1299,7 +1299,7 @@ void EnZl4_Cutscene(EnZl4* pthis, GlobalContext* globalCtx)
 
 void EnZl4_Idle(EnZl4* pthis, GlobalContext* globalCtx)
 {
-	func_800343CC(globalCtx, &pthis->actor, &pthis->unk_1E0.unk_00, pthis->collider.dim.radius + 60.0f, EnZl4_GetText, func_80B5B9B0);
+	Actor_UpdateTalkRequest(globalCtx, &pthis->actor, &pthis->unk_1E0.unk_00, pthis->collider.dim.radius + 60.0f, EnZl4_GetText, func_80B5B9B0);
 	func_80B5BB78(pthis, globalCtx);
 }
 

@@ -646,7 +646,7 @@ void func_80AAB158(EnMd* pthis, GlobalContext* globalCtx)
 	{
 		if(temp2)
 		{
-			func_800343CC(globalCtx, &pthis->actor, &pthis->unk_1E0.unk_00, pthis->collider.dim.radius + 30.0f, EnMd_GetText, func_80AAAF04);
+			Actor_UpdateTalkRequest(globalCtx, &pthis->actor, &pthis->unk_1E0.unk_00, pthis->collider.dim.radius + 30.0f, EnMd_GetText, func_80AAAF04);
 		}
 	}
 }
