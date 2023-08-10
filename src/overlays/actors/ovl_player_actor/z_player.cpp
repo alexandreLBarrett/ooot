@@ -3548,7 +3548,6 @@ void UpdateZTarget(Player* pthis, GlobalContext* globalCtx)
 				zHoldTimer = 50;
 			}
 
-			printf("Z_TIMER: %f\n", zHoldTimer.toFloat());
 			if(zHoldTimer <= 0)
 			{
 				Player_ClearZTarget(pthis);
