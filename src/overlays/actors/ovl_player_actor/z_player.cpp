@@ -3436,6 +3436,7 @@ s32 func_80836AB8(Player* pthis, s32 arg1)
 	return var;
 }
 
+// Max timer to release target in Toggle mode
 static TimerS16 zHoldTimer;
 void UpdateZTarget(Player* pthis, GlobalContext* globalCtx)
 {
@@ -3485,6 +3486,7 @@ void UpdateZTarget(Player* pthis, GlobalContext* globalCtx)
 	{
 		if(!cond)
 		{
+			holdTarget = (gSaveContext.zTargetSetting != 0) || (pthis->actor.category != ACTORCAT_PLAYER);
 			if(!(pthis->stateFlags1 & PLAYER_STATE1_25) && ((pthis->heldItemActionParam != PLAYER_AP_FISHING_POLE) || (pthis->unk_860 == 0)) && CHECK_BTN_ALL(sControlInput->press.button, BTN_Z))
 			{
 				if(pthis->actor.category == ACTORCAT_PLAYER)
@@ -3496,7 +3498,6 @@ void UpdateZTarget(Player* pthis, GlobalContext* globalCtx)
 					actorToTarget = &GET_PLAYER(globalCtx)->actor;
 				}
 
-				holdTarget = (gSaveContext.zTargetSetting != 0) || (pthis->actor.category != ACTORCAT_PLAYER);
 				pthis->stateFlags1 |= PLAYER_STATE1_15;
 
 				if((actorToTarget != NULL) && !(actorToTarget->flags & ACTOR_FLAG_27))
@@ -3537,7 +3538,7 @@ void UpdateZTarget(Player* pthis, GlobalContext* globalCtx)
 			}
 			else if(CHECK_BTN_ALL(sControlInput->cur.button, BTN_Z))
 			{
-				if(zHoldTimer > 0)
+				if(!holdTarget && zHoldTimer > 0)
 				{
 					zHoldTimer--;
 				}
@@ -3547,6 +3548,7 @@ void UpdateZTarget(Player* pthis, GlobalContext* globalCtx)
 				zHoldTimer = 50;
 			}
 
+			printf("Z_TIMER: %f\n", zHoldTimer.toFloat());
 			if(zHoldTimer <= 0)
 			{
 				Player_ClearZTarget(pthis);

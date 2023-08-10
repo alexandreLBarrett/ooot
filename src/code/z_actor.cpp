@@ -507,7 +507,7 @@ void func_8002C124(TargetContext* targetCtx, GlobalContext* globalCtx)
 	CLOSE_DISPS(globalCtx->gfxCtx, "../z_actor.c", 2158);
 }
 
-void func_8002C7BC(TargetContext* targetCtx, Player* player, Actor* actorArg, GlobalContext* globalCtx)
+void Target_Update(TargetContext* targetCtx, Player* player, Actor* actorArg, GlobalContext* globalCtx)
 {
 	s32 pad;
 	Actor* unkActor;
@@ -565,7 +565,7 @@ void func_8002C7BC(TargetContext* targetCtx, Player* player, Actor* actorArg, Gl
 		unkActor = &player->actor;
 	}
 
-	if(Math_StepToF(&targetCtx->unk_40, 0.0f, 0.25f) == 0)
+	if(Math_StepToF(&targetCtx->unk_40, 0.0f, 0.01f) == 0)
 	{
 		temp1 = 0.25f / targetCtx->unk_40;
 		temp2 = unkActor->world.pos.x - targetCtx->naviRefPos.x;
@@ -2537,7 +2537,7 @@ void Actor_UpdateAll(GlobalContext* globalCtx, ActorContext* actorCtx)
 		}
 	}
 
-	func_8002C7BC(&actorCtx->targetCtx, player, actor, globalCtx);
+	Target_Update(&actorCtx->targetCtx, player, actor, globalCtx);
 	TitleCard_Update(globalCtx, &actorCtx->titleCtx);
 	DynaPoly_UpdateBgActorTransforms(globalCtx, &globalCtx->colCtx.dyna);
 }

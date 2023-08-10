@@ -1698,7 +1698,7 @@
     <ClCompile Include="..\src\code\audioMgr.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\code\code_800A9F30.cpp">
+    <ClCompile Include="..\src\code\rumble.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
     <ClCompile Include="..\src\code\code_800ACE70.cpp">
@@ -1708,9 +1708,6 @@
       <Filter>Source Files\code</Filter>
     </ClCompile>
     <ClCompile Include="..\src\code\code_800BB0A0.cpp">
-      <Filter>Source Files\code</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\code\code_800D2E30.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
     <ClCompile Include="..\src\code\audio_rsp.cpp">
