@@ -314,11 +314,11 @@ Gfx D_80115FF0[] = {
     gsSPEndDisplayList(),
 };
 
-void func_8002BE64(TargetContext* targetCtx, s32 index, f32 arg2, f32 arg3, f32 arg4)
+void Target_SetTargetEntryPositionByIndex(TargetContext* targetCtx, s32 index, f32 x, f32 y, f32 z)
 {
-	targetCtx->arr_50[index].pos.x = arg2;
-	targetCtx->arr_50[index].pos.y = arg3;
-	targetCtx->arr_50[index].pos.z = arg4;
+	targetCtx->arr_50[index].pos.x = x;
+	targetCtx->arr_50[index].pos.y = y;
+	targetCtx->arr_50[index].pos.z = z;
 	targetCtx->arr_50[index].unk_0C = targetCtx->unk_44;
 }
 
@@ -337,7 +337,7 @@ void func_8002BE98(TargetContext* targetCtx, s32 actorCategory, GlobalContext* g
 	entry = &targetCtx->arr_50[0];
 	for(i = 0; i < ARRAY_COUNT(targetCtx->arr_50); i++)
 	{
-		func_8002BE64(targetCtx, i, 0.0f, 0.0f, 0.0f);
+		Target_SetTargetEntryPositionByIndex(targetCtx, i, 0.0f, 0.0f, 0.0f);
 		entry->color.r = naviColor->inner.r;
 		entry->color.g = naviColor->inner.g;
 		entry->color.b = naviColor->inner.b;
@@ -345,7 +345,7 @@ void func_8002BE98(TargetContext* targetCtx, s32 actorCategory, GlobalContext* g
 	}
 }
 
-void func_8002BF60(TargetContext* targetCtx, Actor* actor, s32 actorCategory, GlobalContext* globalCtx)
+void Target_SetupNavi(TargetContext* targetCtx, Actor* actor, s32 actorCategory, GlobalContext* globalCtx)
 {
 	NaviColor* naviColor = &sNaviColorList[actorCategory];
 	targetCtx->naviRefPos.x = actor->focus.pos.x;
@@ -370,7 +370,7 @@ void Target_Init(TargetContext* targetCtx, Actor* actor, GlobalContext* globalCt
 	targetCtx->bgmEnemy = NULL;
 	targetCtx->unk_4B = 0;
 	targetCtx->unk_4C = 0;
-	func_8002BF60(targetCtx, actor, actor->category, globalCtx);
+	Target_SetupNavi(targetCtx, actor, actor->category, globalCtx);
 	func_8002BE98(targetCtx, actor->category, globalCtx);
 }
 
@@ -440,7 +440,7 @@ void func_8002C124(TargetContext* targetCtx, GlobalContext* globalCtx)
 			targetCtx->unk_4C = 2;
 		}
 
-		func_8002BE64(targetCtx, targetCtx->unk_4C, spBC.x, spBC.y, spBC.z);
+		Target_SetTargetEntryPositionByIndex(targetCtx, targetCtx->unk_4C, spBC.x, spBC.y, spBC.z);
 
 		if((!(player->stateFlags1 & PLAYER_STATE1_6)) || (actor != player->targetedActor))
 		{
@@ -577,7 +577,7 @@ void func_8002C7BC(TargetContext* targetCtx, Player* player, Actor* actorArg, Gl
 	}
 	else
 	{
-		func_8002BF60(targetCtx, unkActor, actorCategory, globalCtx);
+		Target_SetupNavi(targetCtx, unkActor, actorCategory, globalCtx);
 	}
 
 	if((actorArg != NULL) && (targetCtx->unk_4B == 0))
