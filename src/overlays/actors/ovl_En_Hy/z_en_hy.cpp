@@ -566,7 +566,7 @@ s16 func_80A70058(GlobalContext* globalCtx, Actor* thisx)
 				case 0x70F3:
 					if(pthis->skelAnime.animation != &gObjOsAnim_33B4)
 					{
-						func_80034EC0(&pthis->skelAnime, sAnimationInfo, ENHY_ANIM_23);
+						SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimationInfo, ENHY_ANIM_23);
 						Audio_PlayFanfare(NA_BGM_ITEM_GET | 0x900);
 					}
 					break;
@@ -580,7 +580,7 @@ s16 func_80A70058(GlobalContext* globalCtx, Actor* thisx)
 				case 0x70F2:
 				case 0x70F3:
 					Rupees_ChangeBy(beggarRewards[pthis->actor.textId - 0x70F0]);
-					func_80034EC0(&pthis->skelAnime, sAnimationInfo, ENHY_ANIM_17);
+					SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimationInfo, ENHY_ANIM_17);
 					Player_UpdateBottleHeld(globalCtx, GET_PLAYER(globalCtx), ITEM_BOTTLE, PLAYER_AP_BOTTLE);
 					break;
 				case 0x7016:
@@ -951,7 +951,7 @@ void EnHy_InitImpl(EnHy* pthis, GlobalContext* globalCtx)
 		Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sColCylInit);
 		EnHy_InitCollider(pthis);
 		CollisionCheck_SetInfo2(&pthis->actor.colChkInfo, NULL, &sColChkInfoInit);
-		func_80034EC0(&pthis->skelAnime, sAnimationInfo, sModelInfo[pthis->actor.params & 0x7F].animInfoIndex);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimationInfo, sModelInfo[pthis->actor.params & 0x7F].animInfoIndex);
 
 		if((globalCtx->sceneNum == SCENE_MARKET_ALLEY) || (globalCtx->sceneNum == SCENE_MARKET_DAY))
 		{
@@ -1022,19 +1022,19 @@ void func_80A710F8(EnHy* pthis, GlobalContext* globalCtx)
 	{
 		if(pthis->skelAnime.animation != &gObjOsAnim_0BFC)
 		{
-			func_80034EC0(&pthis->skelAnime, sAnimationInfo, ENHY_ANIM_26);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimationInfo, ENHY_ANIM_26);
 		}
 	}
 	else if(gSaveContext.eventInf[3] & 1)
 	{
 		if(pthis->skelAnime.animation != &gObjOsAnim_0FE4)
 		{
-			func_80034EC0(&pthis->skelAnime, sAnimationInfo, ENHY_ANIM_25);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimationInfo, ENHY_ANIM_25);
 		}
 	}
 	else if(pthis->skelAnime.animation != &gObjOsAnim_12E8)
 	{
-		func_80034EC0(&pthis->skelAnime, sAnimationInfo, ENHY_ANIM_24);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimationInfo, ENHY_ANIM_24);
 	}
 }
 
@@ -1070,7 +1070,7 @@ void func_80A712C0(EnHy* pthis, GlobalContext* globalCtx)
 {
 	if((pthis->actor.xzDistToPlayer <= 100.0f) && (pthis->path != NULL))
 	{
-		func_80034EC0(&pthis->skelAnime, sAnimationInfo, ENHY_ANIM_7);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimationInfo, ENHY_ANIM_7);
 		pthis->actor.speedXZ = 0.4f;
 		pthis->actionFunc = func_80A7134C;
 	}
@@ -1085,12 +1085,12 @@ void func_80A7134C(EnHy* pthis, GlobalContext* globalCtx)
 
 	if((pthis->skelAnime.animation == &gObjOsAnim_2160) && (pthis->unk_1E8.unk_00 != 0))
 	{
-		func_80034EC0(&pthis->skelAnime, sAnimationInfo, ENHY_ANIM_8);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimationInfo, ENHY_ANIM_8);
 	}
 
 	if((pthis->skelAnime.animation == &gObjOsAnim_265C) && (pthis->unk_1E8.unk_00 == 0))
 	{
-		func_80034EC0(&pthis->skelAnime, sAnimationInfo, ENHY_ANIM_7);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimationInfo, ENHY_ANIM_7);
 	}
 
 	pthis->actor.speedXZ = 0.4f;

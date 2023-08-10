@@ -640,7 +640,7 @@ void EnZo_SetAnimation(EnZo* pthis)
 
 	if(animId != 8)
 	{
-		func_80034EC0(&pthis->skelAnime, sAnimations, animId);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, animId);
 		if(animId == 3)
 		{
 			pthis->skelAnime.curFrame = pthis->skelAnime.endFrame;
@@ -665,7 +665,7 @@ void EnZo_Init(Actor* thisx, GlobalContext* globalCtx)
 		return;
 	}
 
-	func_80034EC0(&pthis->skelAnime, sAnimations, 2);
+	SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 2);
 	Actor_SetScale(&pthis->actor, 0.01f);
 	pthis->actor.targetMode = 6;
 	pthis->dialogRadius = pthis->collider.dim.radius + 30.0f;
@@ -678,7 +678,7 @@ void EnZo_Init(Actor* thisx, GlobalContext* globalCtx)
 	{
 		pthis->actor.shape.shadowDraw = ActorShadow_DrawCircle;
 		pthis->actor.shape.shadowScale = 24.0f;
-		func_80034EC0(&pthis->skelAnime, sAnimations, 1);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 1);
 		pthis->canSpeak = true;
 		pthis->alpha = 255.0f;
 		pthis->actionFunc = EnZo_Standing;
@@ -739,7 +739,7 @@ void EnZo_Surface(EnZo* pthis, GlobalContext* globalCtx)
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_OUT_OF_WATER);
 		EnZo_SpawnSplashes(pthis);
-		func_80034EC0(&pthis->skelAnime, sAnimations, 3);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 3);
 		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		pthis->actionFunc = EnZo_TreadWater;
 		pthis->actor.velocity.y = 0.0f;
@@ -785,7 +785,7 @@ void EnZo_TreadWater(EnZo* pthis, GlobalContext* globalCtx)
 	else if(DECRT(pthis->timeToDive) == 0)
 	{
 		f32 startFrame;
-		func_80034EC0(&pthis->skelAnime, sAnimations, 4);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 4);
 		pthis->canSpeak = false;
 		pthis->unk_64C = 1;
 		pthis->actionFunc = EnZo_Dive;
@@ -821,7 +821,7 @@ void EnZo_Dive(EnZo* pthis, GlobalContext* globalCtx)
 
 	if((s16)pthis->alpha == 0)
 	{
-		func_80034EC0(&pthis->skelAnime, sAnimations, 2);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 2);
 		pthis->actor.world.pos = pthis->actor.home.pos;
 		pthis->alpha = 0.0f;
 		pthis->actionFunc = EnZo_Submerged;

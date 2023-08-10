@@ -275,21 +275,21 @@ void func_809FDE9C(EnDu* pthis)
 	}
 }
 
-void func_809FDFC0(CsCmdActorAction* csAction, Vec3f* dst)
+void CsCmdActorAction_GetStartPos(CsCmdActorAction* csAction, Vec3f* dst)
 {
 	dst->x = csAction->startPos.x;
 	dst->y = csAction->startPos.y;
 	dst->z = csAction->startPos.z;
 }
 
-void func_809FE000(CsCmdActorAction* csAction, Vec3f* dst)
+void CsCmdActorAction_GetEndPos(CsCmdActorAction* csAction, Vec3f* dst)
 {
 	dst->x = csAction->endPos.x;
 	dst->y = csAction->endPos.y;
 	dst->z = csAction->endPos.z;
 }
 
-void func_809FE040(EnDu* pthis)
+void EnDu_UpdateDancing1(EnDu* pthis)
 {
 	s32 animationIndices[] = {8, 8, 8, 8, 9, 10, 10, 13};
 
@@ -300,11 +300,11 @@ void func_809FE040(EnDu* pthis)
 		{
 			pthis->unk_1E6 = 0;
 		}
-		func_80034EC0(&pthis->skelAnime, sAnimations, animationIndices[pthis->unk_1E6]);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, animationIndices[pthis->unk_1E6]);
 	}
 }
 
-void func_809FE104(EnDu* pthis)
+void EnDu_UpdateDancing2(EnDu* pthis)
 {
 	s32 animationIndices[] = {8, 8, 11, 12};
 
@@ -315,7 +315,7 @@ void func_809FE104(EnDu* pthis)
 			pthis->unk_1E6++;
 			if(pthis->unk_1E6 < 4)
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, animationIndices[pthis->unk_1E6]);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, animationIndices[pthis->unk_1E6]);
 			}
 		}
 	}
@@ -336,7 +336,7 @@ void EnDu_Init(Actor* thisx, GlobalContext* globalCtx)
 		Actor_Kill(&pthis->actor);
 		return;
 	}
-	func_80034EC0(&pthis->skelAnime, sAnimations, 0);
+	SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 0);
 	Actor_SetScale(&pthis->actor, 0.01f);
 	pthis->actor.targetMode = 1;
 	pthis->unk_1F4.unk_00 = 0;
@@ -534,23 +534,24 @@ void func_809FE890(EnDu* pthis, GlobalContext* globalCtx)
 
 	if(csAction != NULL)
 	{
-		func_809FDFC0(csAction, &startPos);
-		func_809FE000(csAction, &endPos);
+		CsCmdActorAction_GetStartPos(csAction, &startPos);
+		CsCmdActorAction_GetEndPos(csAction, &endPos);
 		if(pthis->unk_1EA == 0)
 		{
-			func_809FDFC0(csAction, &startPos);
+			CsCmdActorAction_GetStartPos(csAction, &startPos);
 			pthis->actor.world.pos = startPos;
 		}
 		if(pthis->unk_1EA != csAction->action)
 		{
 			if(csAction->action == 1)
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, 1);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 1);
 			}
 			if(csAction->action == 7 || csAction->action == 8)
 			{
+				//Set darunia dancing anim
 				pthis->unk_1E6 = 0;
-				func_80034EC0(&pthis->skelAnime, sAnimations, 7);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 7);
 			}
 			pthis->unk_1EA = csAction->action;
 			if(pthis->unk_1EA == 7)
@@ -570,11 +571,11 @@ void func_809FE890(EnDu* pthis, GlobalContext* globalCtx)
 		}
 		if(pthis->unk_1EA == 7)
 		{
-			func_809FE040(pthis);
+			EnDu_UpdateDancing1(pthis);
 		}
 		if(pthis->unk_1EA == 8)
 		{
-			func_809FE104(pthis);
+			EnDu_UpdateDancing2(pthis);
 		}
 		pthis->actor.shape.rot.x = csAction->urot.x;
 		pthis->actor.shape.rot.y = csAction->urot.y;
@@ -587,7 +588,7 @@ void func_809FE890(EnDu* pthis, GlobalContext* globalCtx)
 
 			pthis->actor.velocity.x = (endPos.x - startPos.x) / frame;
 			pthis->actor.velocity.y = (endPos.y - startPos.y) / frame;
-			pthis->actor.velocity.y += pthis->actor.gravity;
+			pthis->actor.velocity.y += pthis->actor.gravity * FRAMERATE_SCALER;
 			if(pthis->actor.velocity.y < pthis->actor.minVelocityY)
 			{
 				pthis->actor.velocity.y = pthis->actor.minVelocityY;
@@ -607,7 +608,7 @@ void func_809FEB08(EnDu* pthis, GlobalContext* globalCtx)
 	if(pthis->unk_1E8 == 1)
 	{
 		func_8002DF54(globalCtx, &pthis->actor, 7);
-		func_80034EC0(&pthis->skelAnime, sAnimations, 1);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 1);
 		EnDu_SetupAction(pthis, func_809FE3C0);
 		return;
 	}
@@ -622,7 +623,7 @@ void func_809FEB08(EnDu* pthis, GlobalContext* globalCtx)
 		EnDu_SetupAction(pthis, func_809FE3C0);
 	}
 	Message_StartTextbox(globalCtx, pthis->actor.textId, NULL);
-	func_80034EC0(&pthis->skelAnime, sAnimations, 14);
+	SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 14);
 	pthis->unk_1F4.unk_00 = 1;
 }
 
@@ -669,7 +670,7 @@ void EnDu_Update(Actor* thisx, GlobalContext* globalCtx)
 
 	if(pthis->skelAnime.animation == &gDaruniaDancingEndAnim && Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame))
 	{
-		func_80034EC0(&pthis->skelAnime, sAnimations, 1);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 1);
 	}
 
 	SkelAnime_Update(&pthis->skelAnime);

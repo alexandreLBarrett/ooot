@@ -249,19 +249,19 @@ void EnSt_AddBlurSpace(EnSt* pthis)
 
 void EnSt_SetWaitingAnimation(EnSt* pthis)
 {
-	func_80034EC0(&pthis->skelAnime, sAnimations, 3);
+	SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 3);
 }
 
 void EnSt_SetReturnToCeilingAnimation(EnSt* pthis)
 {
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_STALTU_UP);
-	func_80034EC0(&pthis->skelAnime, sAnimations, 2);
+	SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 2);
 }
 
 void EnSt_SetLandAnimation(EnSt* pthis)
 {
 	pthis->actor.world.pos.y = pthis->actor.floorHeight + pthis->floorHeightOffset;
-	func_80034EC0(&pthis->skelAnime, sAnimations, 4);
+	SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 4);
 	pthis->sfxTimer = 0;
 	pthis->animFrames = pthis->skelAnime.animLength;
 }
@@ -270,7 +270,7 @@ void EnSt_SetDropAnimAndVel(EnSt* pthis)
 {
 	if(pthis->takeDamageSpinTimer == 0)
 	{
-		func_80034EC0(&pthis->skelAnime, sAnimations, 4);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 4);
 		pthis->animFrames = pthis->skelAnime.animLength;
 	}
 	pthis->sfxTimer = 0;
@@ -491,7 +491,7 @@ s32 EnSt_CheckHitBackside(EnSt* pthis, GlobalContext* globalCtx)
 
 	pthis->swayTimer = pthis->stunTimer = 0;
 	pthis->gaveDamageSpinTimer = 1;
-	func_80034EC0(&pthis->skelAnime, sAnimations, 3);
+	SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 3);
 	pthis->takeDamageSpinTimer = pthis->skelAnime.animLength;
 	Actor_SetColorFilter(&pthis->actor, 0x4000, 0xC8, 0, pthis->takeDamageSpinTimer.whole());
 	if(Actor_ApplyDamage(&pthis->actor))
@@ -887,7 +887,7 @@ void EnSt_Init(Actor* pthisx, GlobalContext* globalCtx)
 
 	ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 14.0f);
 	SkelAnime_Init(globalCtx, &pthis->skelAnime, &object_st_Skel_005298, NULL, pthis->jointTable, pthis->morphTable, 30);
-	func_80034EC0(&pthis->skelAnime, sAnimations, 0);
+	SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 0);
 	pthis->blureIdx = EnSt_CreateBlureEffect(globalCtx);
 	EnSt_InitColliders(pthis, globalCtx);
 	if(pthisx->params == 2)
@@ -948,7 +948,7 @@ void EnSt_WaitOnGround(EnSt* pthis, GlobalContext* globalCtx)
 		DECRT(pthis->takeDamageSpinTimer);
 		if(pthis->takeDamageSpinTimer == 0)
 		{
-			func_80034EC0(&pthis->skelAnime, sAnimations, 3);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 3);
 		}
 	}
 
@@ -957,7 +957,7 @@ void EnSt_WaitOnGround(EnSt* pthis, GlobalContext* globalCtx)
 		pthis->animFrames--;
 		if(pthis->animFrames == 0)
 		{
-			func_80034EC0(&pthis->skelAnime, sAnimations, 3);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 3);
 		}
 	}
 
@@ -987,7 +987,7 @@ void EnSt_LandOnGround(EnSt* pthis, GlobalContext* globalCtx)
 		pthis->animFrames--;
 		if(pthis->animFrames == 0)
 		{
-			func_80034EC0(&pthis->skelAnime, sAnimations, 3);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 3);
 		}
 	}
 
@@ -996,7 +996,7 @@ void EnSt_LandOnGround(EnSt* pthis, GlobalContext* globalCtx)
 		DECRT(pthis->takeDamageSpinTimer);
 		if(pthis->takeDamageSpinTimer == 0)
 		{
-			func_80034EC0(&pthis->skelAnime, sAnimations, 3);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 3);
 		}
 	}
 
@@ -1026,7 +1026,7 @@ void EnSt_MoveToGround(EnSt* pthis, GlobalContext* globalCtx)
 		DECRT(pthis->takeDamageSpinTimer);
 		if(pthis->takeDamageSpinTimer == 0)
 		{
-			func_80034EC0(&pthis->skelAnime, sAnimations, 5);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 5);
 		}
 	}
 

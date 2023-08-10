@@ -216,7 +216,7 @@ void EnFw_Init(Actor* thisx, GlobalContext* globalCtx)
 	EnFw* pthis = (EnFw*)thisx;
 
 	SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gFlareDancerCoreSkel, NULL, pthis->jointTable, pthis->morphTable, 11);
-	func_80034EC0(&pthis->skelAnime, D_80A1FBA0, 0);
+	SkelAnime_SetAnimByIndex(&pthis->skelAnime, D_80A1FBA0, 0);
 	ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 20.0f);
 	Collider_InitJntSph(globalCtx, &pthis->collider);
 	Collider_SetJntSph(globalCtx, &pthis->collider, &pthis->actor, &sJntSphInit, pthis->sphs);
@@ -256,7 +256,7 @@ void EnFw_Run(EnFw* pthis, GlobalContext* globalCtx)
 		if(Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame) == 0)
 		{
 			pthis->runRadius = Math_Vec3f_DistXYZ(&pthis->actor.world.pos, &pthis->actor.parent->world.pos);
-			func_80034EC0(&pthis->skelAnime, D_80A1FBA0, 2);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, D_80A1FBA0, 2);
 		}
 		return;
 	}
@@ -398,7 +398,7 @@ void EnFw_TurnToParentInitPos(EnFw* pthis, GlobalContext* globalCtx)
 		pthis->actor.velocity.y = 14.0f;
 		pthis->actor.home.pos = pthis->actor.world.pos;
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_STAL_JUMP);
-		func_80034EC0(&pthis->skelAnime, D_80A1FBA0, 1);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, D_80A1FBA0, 1);
 		pthis->actionFunc = EnFw_JumpToParentInitPos;
 	}
 }

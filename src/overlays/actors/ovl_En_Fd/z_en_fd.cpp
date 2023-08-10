@@ -520,7 +520,7 @@ void EnFd_Reappear(EnFd* pthis, GlobalContext* globalCtx)
 	pthis->coreActive = false;
 	pthis->actor.scale.y = 0.0f;
 	pthis->fadeAlpha = 255.0f;
-	func_80034EC0(&pthis->skelAnime, sAnimations, 0);
+	SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 0);
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_FLAME_LAUGH);
 	pthis->actionFunc = EnFd_SpinAndGrow;
 }
@@ -534,7 +534,7 @@ void EnFd_SpinAndGrow(EnFd* pthis, GlobalContext* globalCtx)
 		pthis->actor.world.rot.y ^= 0x8000;
 		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		pthis->actor.speedXZ = 8.0f;
-		func_80034EC0(&pthis->skelAnime, sAnimations, 1);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 1);
 		pthis->actionFunc = EnFd_JumpToGround;
 	}
 	else
@@ -552,7 +552,7 @@ void EnFd_JumpToGround(EnFd* pthis, GlobalContext* globalCtx)
 		pthis->actor.velocity.y = 0.0f;
 		pthis->actor.speedXZ = 0.0f;
 		pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
-		func_80034EC0(&pthis->skelAnime, sAnimations, 2);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 2);
 		pthis->actionFunc = EnFd_Land;
 	}
 }
@@ -568,7 +568,7 @@ void EnFd_Land(EnFd* pthis, GlobalContext* globalCtx)
 		pthis->runRadius = Math_Vec3f_DistXYZ(&pthis->actor.world.pos, &pthis->actor.home.pos);
 		EnFd_GetPosAdjAroundCircle(&adjPos, pthis, pthis->runRadius, pthis->runDir);
 		pthis->actor.world.rot.y = Math_FAtan2F(adjPos.x, adjPos.z) * (0x8000 / M_PI);
-		func_80034EC0(&pthis->skelAnime, sAnimations, 4);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 4);
 		pthis->actionFunc = EnFd_SpinAndSpawnFire;
 	}
 }
@@ -629,7 +629,7 @@ void EnFd_SpinAndSpawnFire(EnFd* pthis, GlobalContext* globalCtx)
 			pthis->curYawToInitPos = pthis->runDir < 0 ? 0xFFFF : 0;
 			pthis->circlesToComplete = (globalCtx->frames & 7) + 2;
 			pthis->spinTimer = Rand_S16Offset(30, 120);
-			func_80034EC0(&pthis->skelAnime, sAnimations, 3);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 3);
 			pthis->actionFunc = EnFd_Run;
 		}
 	}
@@ -654,7 +654,7 @@ void EnFd_Run(EnFd* pthis, GlobalContext* globalCtx)
 			pthis->actor.world.rot.y ^= 0x8000;
 			pthis->actor.velocity.y = 6.0f;
 			pthis->actor.speedXZ = 0.0f;
-			func_80034EC0(&pthis->skelAnime, sAnimations, 1);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 1);
 			pthis->actionFunc = EnFd_JumpToGround;
 			return;
 		}

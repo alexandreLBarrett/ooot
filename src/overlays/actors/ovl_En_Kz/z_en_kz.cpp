@@ -392,7 +392,7 @@ void EnKz_Init(Actor* thisx, GlobalContext* globalCtx)
 	Actor_SetScale(&pthis->actor, 0.01);
 	pthis->actor.targetMode = 3;
 	pthis->unk_1E0.unk_00 = 0;
-	func_80034EC0(&pthis->skelanime, sAnimations, 0);
+	SkelAnime_SetAnimByIndex(&pthis->skelanime, sAnimations, 0);
 
 	if(gSaveContext.eventChkInf[3] & 8)
 	{
@@ -424,7 +424,7 @@ void EnKz_PreMweepWait(EnKz* pthis, GlobalContext* globalCtx)
 {
 	if(pthis->unk_1E0.unk_00 == 2)
 	{
-		func_80034EC0(&pthis->skelanime, sAnimations, 2);
+		SkelAnime_SetAnimByIndex(&pthis->skelanime, sAnimations, 2);
 		pthis->unk_1E0.unk_00 = 0;
 		pthis->actionFunc = EnKz_SetupMweep;
 	}
@@ -469,7 +469,7 @@ void EnKz_Mweep(EnKz* pthis, GlobalContext* globalCtx)
 	Gameplay_CameraSetAtEye(globalCtx, pthis->cutsceneCamera, &pos, &initPos);
 	if((EnKz_FollowPath(pthis, globalCtx) == 1) && (pthis->waypoint == 0))
 	{
-		func_80034EC0(&pthis->skelanime, sAnimations, 1);
+		SkelAnime_SetAnimByIndex(&pthis->skelanime, sAnimations, 1);
 		Inventory_ReplaceItem(globalCtx, ITEM_LETTER_RUTO, ITEM_BOTTLE);
 		EnKz_SetMovedPos(pthis, globalCtx);
 		gSaveContext.eventChkInf[3] |= 8;

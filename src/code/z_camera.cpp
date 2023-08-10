@@ -5006,7 +5006,7 @@ s32 Camera_Subj3(Camera* camera)
 	tsph.pitch = anim->pitch;
 	if(anim->animTimer != 0)
 	{
-		temp_f0_3 = (1.0f / anim->animTimer) * FRAMERATE_SCALER_INV;
+		temp_f0_3 = (1.0f / anim->animTimer);
 		pad2 = at;
 		at->x = at->x + (sp98.x - pad2->x) * temp_f0_3;
 		at->y = at->y + (sp98.y - pad2->y) * temp_f0_3;

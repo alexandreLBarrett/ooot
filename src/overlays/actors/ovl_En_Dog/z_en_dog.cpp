@@ -134,7 +134,7 @@ s32 EnDog_PlayAnimAndSFX(EnDog* pthis)
 				animation = 6;
 				break;
 		}
-		func_80034EC0(&pthis->skelAnime, sAnimations, animation);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, animation);
 	}
 
 	switch(pthis->behavior)
@@ -142,14 +142,14 @@ s32 EnDog_PlayAnimAndSFX(EnDog* pthis)
 		case DOG_SIT:
 			if(Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame))
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, 5);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 5);
 				pthis->behavior = pthis->nextBehavior = DOG_SIT_2;
 			}
 			break;
 		case DOG_BOW:
 			if(Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame))
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, 7);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 7);
 				pthis->behavior = pthis->nextBehavior = DOG_BOW_2;
 			}
 			break;
@@ -257,7 +257,7 @@ void EnDog_Init(Actor* thisx, GlobalContext* globalCtx)
 
 	ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 24.0f);
 	SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gDogSkel, NULL, pthis->jointTable, pthis->morphTable, 13);
-	func_80034EC0(&pthis->skelAnime, sAnimations, 0);
+	SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 0);
 
 	if((pthis->actor.params & 0x8000) == 0)
 	{

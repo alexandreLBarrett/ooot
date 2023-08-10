@@ -4509,7 +4509,7 @@ s16 func_80034DD4(Actor* actor, GlobalContext* globalCtx, s16 arg2, f32 arg3)
 	return arg2;
 }
 
-void func_80034EC0(SkelAnime* skelAnime, struct_80034EC0_Entry* animations, s32 index)
+void SkelAnime_SetAnimByIndex(SkelAnime* skelAnime, struct_80034EC0_Entry* animations, s32 index)
 {
 	f32 frameCount;
 

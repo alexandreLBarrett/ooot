@@ -210,15 +210,15 @@ void EnTite_SetupIdle(EnTite* pthis)
 void EnTite_Idle(EnTite* pthis, GlobalContext* globalCtx)
 {
 	SkelAnime_Update(&pthis->skelAnime);
-	Math_SmoothStepToF(&pthis->actor.speedXZ, 0.0f, 1.0f, 0.5f, 0.0f);
+	Math_SmoothStepToF(&pthis->actor.speedXZ, 0.0f, 1.0f, 0.5f, 0.01f);
 	if(pthis->actor.params == TEKTITE_BLUE)
 	{
 		if(pthis->actor.bgCheckFlags & BG_STATE_5)
 		{
 			// Float on water surface
 			pthis->actor.gravity = 0.0f;
-			Math_SmoothStepToF(&pthis->actor.velocity.y, 0.0f, 1.0f, 2.0f, 0.0f);
-			Math_SmoothStepToF(&pthis->actor.world.pos.y, pthis->actor.world.pos.y + pthis->actor.yDistToWater, 1.0f, 2.0f, 0.0f);
+			Math_SmoothStepToF(&pthis->actor.velocity.y, 0.0f, 1.0f, 2.0f, 0.01f);
+			Math_SmoothStepToF(&pthis->actor.world.pos.y, pthis->actor.world.pos.y + pthis->actor.yDistToWater, 1.0f, 2.0f, 0.01f);
 		}
 		else
 		{
@@ -406,8 +406,8 @@ void EnTite_Attack(EnTite* pthis, GlobalContext* globalCtx)
 			break;
 		case TEKTITE_SUBMERGED:
 			// Float up to water surface
-			Math_SmoothStepToF(&pthis->actor.velocity.y, 0.0f, 1.0f, 2.0f, 0.0f);
-			Math_SmoothStepToF(&pthis->actor.speedXZ, 0.0f, 1.0f, 0.5f, 0.0f);
+			Math_SmoothStepToF(&pthis->actor.velocity.y, 0.0f, 1.0f, 2.0f, 0.01f);
+			Math_SmoothStepToF(&pthis->actor.speedXZ, 0.0f, 1.0f, 0.5f, 0.01f);
 			Math_SmoothStepToF(&pthis->actor.world.pos.y, pthis->actor.world.pos.y + pthis->actor.yDistToWater, 1.0f, 2.0f, 0.0f);
 			break;
 	}
@@ -561,7 +561,7 @@ void EnTite_SetupMoveTowardPlayer(EnTite* pthis)
  */
 void EnTite_MoveTowardPlayer(EnTite* pthis, GlobalContext* globalCtx)
 {
-	Math_SmoothStepToF(&pthis->actor.speedXZ, 0.0f, 0.1f, 1.0f, 0.0f);
+	Math_SmoothStepToF(&pthis->actor.speedXZ, 0.0f, 0.1f, 1.0f, 0.01f);
 	SkelAnime_Update(&pthis->skelAnime);
 
 	if(pthis->actor.bgCheckFlags & (BG_STATE_1 | BG_STATE_6))
@@ -618,8 +618,8 @@ void EnTite_MoveTowardPlayer(EnTite* pthis, GlobalContext* globalCtx)
 		else
 		{
 			// If submerged, float to surface
-			Math_SmoothStepToF(&pthis->actor.velocity.y, 0.0f, 1.0f, 2.0f, 0.0f);
-			Math_SmoothStepToF(&pthis->actor.world.pos.y, pthis->actor.world.pos.y + pthis->actor.yDistToWater, 1.0f, 2.0f, 0.0f);
+			Math_SmoothStepToF(&pthis->actor.velocity.y, 0.0f, 1.0f, 2.0f, 0.01f);
+			Math_SmoothStepToF(&pthis->actor.world.pos.y, pthis->actor.world.pos.y + pthis->actor.yDistToWater, 1.0f, 2.0f, 0.01f);
 			if(pthis->actor.yDistToWater != 0.0f)
 			{
 				// Do not change state until tekite has floated to surface
@@ -707,7 +707,7 @@ void EnTite_Recoil(EnTite* pthis, GlobalContext* globalCtx)
 	s16 angleToPlayer;
 
 	// Snap to ground or water surface upon landing
-	Math_SmoothStepToF(&pthis->actor.speedXZ, 0.0f, 1.0f, 0.5f, 0.0f);
+	Math_SmoothStepToF(&pthis->actor.speedXZ, 0.0f, 1.0f, 0.5f, 0.01f);
 	if(((pthis->actor.bgCheckFlags & (BG_STATE_0 | BG_STATE_1)) || (pthis->actor.params == TEKTITE_BLUE && (pthis->actor.bgCheckFlags & BG_STATE_5))) && (pthis->actor.velocity.y <= 0.0f))
 	{
 		if((pthis->actor.params != TEKTITE_BLUE) || !(pthis->actor.bgCheckFlags & BG_STATE_5))
@@ -787,7 +787,7 @@ void EnTite_Stunned(EnTite* pthis, GlobalContext* globalCtx)
 {
 	s16 angleToPlayer;
 
-	Math_SmoothStepToF(&pthis->actor.speedXZ, 0.0f, 1.0f, 0.5f, 0.0f);
+	Math_SmoothStepToF(&pthis->actor.speedXZ, 0.0f, 1.0f, 0.5f, 0.01f);
 	// Snap to ground or water
 	if(((pthis->actor.bgCheckFlags & (BG_STATE_0 | BG_STATE_1)) || ((pthis->actor.params == TEKTITE_BLUE) && (pthis->actor.bgCheckFlags & BG_STATE_5))) && (pthis->actor.velocity.y <= 0.0f))
 	{

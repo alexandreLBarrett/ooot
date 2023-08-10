@@ -664,7 +664,7 @@ s32 func_80A97D68(EnKo* pthis, GlobalContext* globalCtx)
 	{
 		if((pthis->skelAnime.animation == &gObjOsAnim_6A60) == false)
 		{
-			func_80034EC0(&pthis->skelAnime, sOsAnimeTable, 0x20);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sOsAnimeTable, 0x20);
 		}
 		arg3 = 2;
 	}
@@ -672,7 +672,7 @@ s32 func_80A97D68(EnKo* pthis, GlobalContext* globalCtx)
 	{
 		if((pthis->skelAnime.animation == &gObjOsAnim_7830) == false)
 		{
-			func_80034EC0(&pthis->skelAnime, sOsAnimeTable, 0x21);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sOsAnimeTable, 0x21);
 		}
 		arg3 = 1;
 	}
@@ -732,7 +732,7 @@ s32 func_80A97F70(EnKo* pthis, GlobalContext* globalCtx)
 	{
 		if((pthis->skelAnime.animation == &gObjOsAnim_8F6C) == false)
 		{
-			func_80034EC0(&pthis->skelAnime, sOsAnimeTable, 0x1D);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sOsAnimeTable, 0x1D);
 		}
 		func_80034F54(globalCtx, pthis->unk_2E4, pthis->unk_304, 16);
 		arg3 = 2;
@@ -741,7 +741,7 @@ s32 func_80A97F70(EnKo* pthis, GlobalContext* globalCtx)
 	{
 		if((pthis->skelAnime.animation == &gObjOsAnim_7D94) == false)
 		{
-			func_80034EC0(&pthis->skelAnime, sOsAnimeTable, 0x1E);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sOsAnimeTable, 0x1E);
 		}
 		arg3 = 1;
 	}
@@ -758,7 +758,7 @@ s32 func_80A98034(EnKo* pthis, GlobalContext* globalCtx)
 	{
 		if((pthis->skelAnime.animation == &gObjOsAnim_8F6C) == false)
 		{
-			func_80034EC0(&pthis->skelAnime, sOsAnimeTable, 0x1D);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sOsAnimeTable, 0x1D);
 		}
 		func_80034F54(globalCtx, pthis->unk_2E4, pthis->unk_304, 16);
 		result = EnKo_IsWithinTalkAngle(pthis);
@@ -768,7 +768,7 @@ s32 func_80A98034(EnKo* pthis, GlobalContext* globalCtx)
 	{
 		if((pthis->skelAnime.animation == &gObjOsAnim_879C) == false)
 		{
-			func_80034EC0(&pthis->skelAnime, sOsAnimeTable, 0x1F);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sOsAnimeTable, 0x1F);
 		}
 		arg3 = 1;
 		result = EnKo_IsWithinTalkAngle(pthis);
@@ -1276,7 +1276,7 @@ void func_80A99048(EnKo* pthis, GlobalContext* globalCtx)
 			pthis->collider.base.ocFlags1 |= 0x40;
 		}
 		pthis->forestQuestState = EnKo_GetForestQuestState2(pthis);
-		func_80034EC0(&pthis->skelAnime, sOsAnimeTable, sOsAnimeLookup[ENKO_TYPE][pthis->forestQuestState]);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sOsAnimeTable, sOsAnimeLookup[ENKO_TYPE][pthis->forestQuestState]);
 		Actor_SetScale(&pthis->actor, 0.01f);
 		func_80A98CD8(pthis);
 		pthis->modelAlpha = 0.0f;
@@ -1300,7 +1300,7 @@ void func_80A99384(EnKo* pthis, GlobalContext* globalCtx)
 {
 	if(ENKO_TYPE == ENKO_TYPE_CHILD_FADO && pthis->unk_1E8.unk_00 != 0 && pthis->actor.textId == 0x10B9)
 	{
-		func_80034EC0(&pthis->skelAnime, sOsAnimeTable, 7);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sOsAnimeTable, 7);
 		pthis->actionFunc = func_80A99438;
 	}
 	else if(ENKO_TYPE == ENKO_TYPE_CHILD_FADO && pthis->unk_1E8.unk_00 == 2)
@@ -1315,14 +1315,14 @@ void func_80A99438(EnKo* pthis, GlobalContext* globalCtx)
 {
 	if(ENKO_TYPE == ENKO_TYPE_CHILD_FADO && pthis->unk_1E8.unk_00 == 2)
 	{
-		func_80034EC0(&pthis->skelAnime, sOsAnimeTable, 6);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sOsAnimeTable, 6);
 		pthis->actionFunc = func_80A99504;
 		globalCtx->msgCtx.stateTimer = 4;
 		globalCtx->msgCtx.msgMode = MSGMODE_TEXT_CLOSING;
 	}
 	else if(pthis->unk_1E8.unk_00 == 0 || pthis->actor.textId != 0x10B9)
 	{
-		func_80034EC0(&pthis->skelAnime, sOsAnimeTable, 6);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sOsAnimeTable, 6);
 		pthis->actionFunc = func_80A99384;
 	}
 }

@@ -230,12 +230,12 @@ void func_80AF58B8(EnSa* pthis)
 	switch(pthis->unk_20A)
 	{
 		case 0:
-			func_80034EC0(&pthis->skelAnime, sAnimations, 3);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 3);
 			pthis->unk_20A++;
 		case 1:
 			if(Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame))
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, 2);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 2);
 				pthis->unk_20A++;
 			}
 			break;
@@ -247,12 +247,12 @@ void func_80AF594C(EnSa* pthis)
 	switch(pthis->unk_20A)
 	{
 		case 0:
-			func_80034EC0(&pthis->skelAnime, sAnimations, 8);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 8);
 			pthis->unk_20A++;
 		case 1:
 			if(Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame))
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, 9);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 9);
 				pthis->unk_20A++;
 			}
 			break;
@@ -264,12 +264,12 @@ void func_80AF59E0(EnSa* pthis)
 	switch(pthis->unk_20A)
 	{
 		case 0:
-			func_80034EC0(&pthis->skelAnime, sAnimations, 1);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 1);
 			pthis->unk_20A++;
 		case 1:
 			if(Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame))
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, 7);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 7);
 				pthis->unk_20A++;
 			}
 			break;
@@ -281,13 +281,13 @@ void func_80AF5A74(EnSa* pthis)
 	switch(pthis->unk_20A)
 	{
 		case 0:
-			func_80034EC0(&pthis->skelAnime, sAnimations, 1);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 1);
 			func_80AF5894(pthis);
 			pthis->unk_20A++;
 		case 1:
 			if(Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame))
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, 9);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 9);
 				pthis->unk_20A++;
 			}
 			break;
@@ -299,12 +299,12 @@ void func_80AF5B10(EnSa* pthis)
 	switch(pthis->unk_20A)
 	{
 		case 0:
-			func_80034EC0(&pthis->skelAnime, sAnimations, 6);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 6);
 			pthis->unk_20A++;
 		case 1:
 			if(Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame))
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, 4);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 4);
 				pthis->unk_20A++;
 			}
 			break;
@@ -316,13 +316,13 @@ void func_80AF5BA4(EnSa* pthis)
 	switch(pthis->unk_20A)
 	{
 		case 0:
-			func_80034EC0(&pthis->skelAnime, sAnimations, 6);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 6);
 			func_80AF5894(pthis);
 			pthis->unk_20A++;
 		case 1:
 			if(Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame))
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, 9);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 9);
 				pthis->unk_20A++;
 			}
 			break;
@@ -334,12 +334,12 @@ void func_80AF5C40(EnSa* pthis)
 	switch(pthis->unk_20A)
 	{
 		case 0:
-			func_80034EC0(&pthis->skelAnime, sAnimations, 5);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 5);
 			pthis->unk_20A++;
 		case 1:
 			if(Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame))
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, 0);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 0);
 				pthis->unk_20A++;
 			}
 			break;

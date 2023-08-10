@@ -1377,12 +1377,12 @@ void func_80A454CC(EnGo2* pthis)
 		case GORON_CITY_ENTRANCE:
 		case GORON_CITY_STAIRWELL:
 		case GORON_DMT_FAIRY_HINT:
-			func_80034EC0(&pthis->skelAnime, sAnimations, 9);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 9);
 			break;
 		case GORON_DMT_BIGGORON:
 			if(INV_CONTENT(ITEM_TRADE_ADULT) >= ITEM_SWORD_BROKEN && INV_CONTENT(ITEM_TRADE_ADULT) <= ITEM_EYEDROPS)
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, 4);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 4);
 				break;
 			}
 		default:
@@ -1587,12 +1587,12 @@ void EnGo2_RollingAnimation(EnGo2* pthis, GlobalContext* globalCtx)
 	if((pthis->actor.params & 0x1F) == GORON_DMT_BIGGORON)
 	{
 		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
-		func_80034EC0(&pthis->skelAnime, sAnimations, 10);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 10);
 		pthis->skelAnime.playSpeed = -0.5f;
 	}
 	else
 	{
-		func_80034EC0(&pthis->skelAnime, sAnimations, 1);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 1);
 		pthis->skelAnime.playSpeed = -1.0f;
 	}
 	EnGo2_SwapInitialFrameAnimFrameCount(pthis);
@@ -1618,12 +1618,12 @@ void EnGo2_WakeUp(EnGo2* pthis, GlobalContext* globalCtx)
 	if((pthis->actor.params & 0x1F) == GORON_DMT_BIGGORON)
 	{
 		OnePointCutscene_Init(globalCtx, 4200, -99, &pthis->actor, MAIN_CAM);
-		func_80034EC0(&pthis->skelAnime, sAnimations, 10);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 10);
 		pthis->skelAnime.playSpeed = 0.5f;
 	}
 	else
 	{
-		func_80034EC0(&pthis->skelAnime, sAnimations, 1);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 1);
 		pthis->skelAnime.playSpeed = 1.0f;
 	}
 	pthis->actionFunc = EnGo2_ActionAwake;
@@ -1631,7 +1631,7 @@ void EnGo2_WakeUp(EnGo2* pthis, GlobalContext* globalCtx)
 
 void EnGo2_GetItemAnimation(EnGo2* pthis, GlobalContext* globalCtx)
 {
-	func_80034EC0(&pthis->skelAnime, sAnimations, 1);
+	SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 1);
 	pthis->unk_211 = true;
 	pthis->actionFunc = EnGo2_ActionAwake;
 	pthis->skelAnime.playSpeed = 0.0f;
@@ -1708,7 +1708,7 @@ s32 EnGo2_IsGoronDmtBombFlower(EnGo2* pthis)
 		return false;
 	}
 
-	func_80034EC0(&pthis->skelAnime, sAnimations, 3);
+	SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 3);
 	pthis->unk_194.unk_00 = 0;
 	pthis->isAwake = false;
 	pthis->talkReadiness = GORON_TALK_NOT_READY;
@@ -1798,7 +1798,7 @@ void EnGo2_GoronLinkAnimation(EnGo2* pthis, GlobalContext* globalCtx)
 
 		if(animation != 13)
 		{
-			func_80034EC0(&pthis->skelAnime, sAnimations, animation);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, animation);
 		}
 	}
 }
@@ -1870,7 +1870,7 @@ void EnGo2_Init(Actor* thisx, GlobalContext* globalCtx)
 
 	EnGo2_SetColliderDim(pthis);
 	EnGo2_SetShape(pthis);
-	func_80034EC0(&pthis->skelAnime, sAnimations, 0);
+	SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 0);
 	pthis->actor.gravity = -1.0f;
 	pthis->alpha = pthis->actor.shape.shadowAlpha = 0;
 	pthis->reverse = 0;
@@ -2215,7 +2215,7 @@ void EnGo2_BiggoronEyedrops(EnGo2* pthis, GlobalContext* globalCtx)
 	switch(pthis->goronState)
 	{
 		case 0:
-			func_80034EC0(&pthis->skelAnime, sAnimations, 5);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 5);
 			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			pthis->actor.shape.rot.y += 0x5B0;
 			pthis->talkReadiness = GORON_TALK_NOT_READY;
@@ -2238,7 +2238,7 @@ void EnGo2_BiggoronEyedrops(EnGo2* pthis, GlobalContext* globalCtx)
 			else
 			{
 				func_800F4524(&gAudioDefaultPos, NA_SE_EN_GOLON_GOOD_BIG, 60);
-				func_80034EC0(&pthis->skelAnime, sAnimations, 6);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 6);
 				Message_ContinueTextbox(globalCtx, 0x305A);
 				pthis->eyeMouthTexState = 3;
 				pthis->goronState++;
@@ -2252,7 +2252,7 @@ void EnGo2_BiggoronEyedrops(EnGo2* pthis, GlobalContext* globalCtx)
 			}
 			if(Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_CLOSING)
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, 1);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 1);
 				pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 				pthis->talkReadiness = GORON_TALK_READY;
 				pthis->skelAnime.playSpeed = 0.0f;
@@ -2314,7 +2314,7 @@ void EnGo2_GoronFireGenericAction(EnGo2* pthis, GlobalContext* globalCtx)
 			{
 				EnGo2_GoronFireCamera(pthis, globalCtx);
 				globalCtx->msgCtx.msgMode = MSGMODE_PAUSED;
-				func_80034EC0(&pthis->skelAnime, sAnimations, 2);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 2);
 				pthis->waypoint = 1;
 				pthis->skelAnime.playSpeed = 2.0f;
 				func_80A44D84(pthis);

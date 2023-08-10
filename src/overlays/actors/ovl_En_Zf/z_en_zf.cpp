@@ -1703,8 +1703,8 @@ void EnZf_HopAndTaunt(EnZf* pthis, GlobalContext* globalCtx)
 	f32 lastFrame;
 	f32 maxDist = 400.0f;
 
-	Math_SmoothStepToF(&pthis->actor.speedXZ, 0.0f, 1.0f, 0.5f, 0.0f);
-	Math_SmoothStepToS(&pthis->actor.shape.rot.y, pthis->actor.yawTowardsPlayer + 0x8000, 1, 4000, 0);
+	Math_SmoothStepToF(&pthis->actor.speedXZ, 0.0f, 1.0f, 0.5f, 0.01f);
+	Math_SmoothStepToS(&pthis->actor.shape.rot.y, pthis->actor.yawTowardsPlayer + 0x8000, 1, 4000, 0.01);
 
 	// Upstairs
 	if(pthis->actor.world.pos.y >= 420.0f)
@@ -1891,7 +1891,7 @@ void EnZf_HopAway(EnZf* pthis, GlobalContext* globalCtx)
 			}
 			else
 			{
-				Math_SmoothStepToS(&pthis->actor.world.rot.y, sp5A, 1, 0xFA0, 0);
+				Math_SmoothStepToS(&pthis->actor.world.rot.y, sp5A, 1, 0xFA0, 0.01f);
 				pthis->actor.shape.rot.y = pthis->actor.world.rot.y + 0x8000;
 				D_80B4AB30++;
 			}

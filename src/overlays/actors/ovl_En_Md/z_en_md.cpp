@@ -99,12 +99,12 @@ void func_80AAA274(EnMd* pthis)
 	switch(pthis->unk_20A)
 	{
 		case 0:
-			func_80034EC0(&pthis->skelAnime, sAnimations, 2);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 2);
 			pthis->unk_20A++;
 		case 1:
 			if(Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame))
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, 3);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 3);
 				pthis->unk_20A++;
 			}
 	}
@@ -115,12 +115,12 @@ void func_80AAA308(EnMd* pthis)
 	switch(pthis->unk_20A)
 	{
 		case 0:
-			func_80034EC0(&pthis->skelAnime, sAnimations, 4);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 4);
 			pthis->unk_20A++;
 		case 1:
 			if(Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame))
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, 5);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 5);
 				pthis->unk_20A++;
 			}
 	}
@@ -131,13 +131,13 @@ void func_80AAA39C(EnMd* pthis)
 	switch(pthis->unk_20A)
 	{
 		case 0:
-			func_80034EC0(&pthis->skelAnime, sAnimations, 2);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 2);
 			func_80AAA250(pthis);
 			pthis->unk_20A++;
 		case 1:
 			if(Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame))
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, 7);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 7);
 				pthis->unk_20A++;
 			}
 			else
@@ -147,7 +147,7 @@ void func_80AAA39C(EnMd* pthis)
 		case 2:
 			if(Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame))
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, 8);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 8);
 				pthis->unk_20A++;
 			}
 	}
@@ -158,12 +158,12 @@ void func_80AAA474(EnMd* pthis)
 	switch(pthis->unk_20A)
 	{
 		case 0:
-			func_80034EC0(&pthis->skelAnime, sAnimations, 7);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 7);
 			pthis->unk_20A++;
 		case 1:
 			if(Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame))
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, 10);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 10);
 				pthis->unk_20A++;
 			}
 	}
@@ -174,13 +174,13 @@ void func_80AAA508(EnMd* pthis)
 	switch(pthis->unk_20A)
 	{
 		case 0:
-			func_80034EC0(&pthis->skelAnime, sAnimations, 2);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 2);
 			func_80AAA250(pthis);
 			pthis->unk_20A++;
 		case 1:
 			if(Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame))
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, 10);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 10);
 				pthis->unk_20A++;
 			}
 	}
@@ -191,12 +191,12 @@ void func_80AAA5A4(EnMd* pthis)
 	switch(pthis->unk_20A)
 	{
 		case 0:
-			func_80034EC0(&pthis->skelAnime, sAnimations, 9);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 9);
 			pthis->unk_20A++;
 		case 1:
 			if(Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame))
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, 6);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 6);
 				pthis->unk_20A++;
 			}
 	}
@@ -207,13 +207,13 @@ void func_80AAA638(EnMd* pthis)
 	switch(pthis->unk_20A)
 	{
 		case 0:
-			func_80034EC0(&pthis->skelAnime, sAnimations, 9);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 9);
 			func_80AAA250(pthis);
 			pthis->unk_20A++;
 		case 1:
 			if(Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame))
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, 10);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 10);
 				pthis->unk_20A++;
 			}
 	}
@@ -224,12 +224,12 @@ void func_80AAA6D4(EnMd* pthis)
 	switch(pthis->unk_20A)
 	{
 		case 0:
-			func_80034EC0(&pthis->skelAnime, sAnimations, 11);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 11);
 			pthis->unk_20A++;
 		case 1:
 			if(Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame))
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, 6);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 6);
 				pthis->unk_20A++;
 			}
 	}
@@ -240,12 +240,12 @@ void func_80AAA768(EnMd* pthis)
 	switch(pthis->unk_20A)
 	{
 		case 0:
-			func_80034EC0(&pthis->skelAnime, sAnimations, 12);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 12);
 			pthis->unk_20A++;
 		case 1:
 			if(Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame))
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, 3);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 3);
 				pthis->unk_20A++;
 			}
 	}
@@ -256,12 +256,12 @@ void func_80AAA7FC(EnMd* pthis)
 	switch(pthis->unk_20A)
 	{
 		case 0:
-			func_80034EC0(&pthis->skelAnime, sAnimations, 13);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 13);
 			pthis->unk_20A++;
 		case 1:
 			if(Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame))
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, 6);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 6);
 				pthis->unk_20A++;
 			}
 	}
@@ -272,13 +272,13 @@ void func_80AAA890(EnMd* pthis)
 	switch(pthis->unk_20A)
 	{
 		case 0:
-			func_80034EC0(&pthis->skelAnime, sAnimations, 7);
+			SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 7);
 			func_80AAA250(pthis);
 			pthis->unk_20A++;
 		case 1:
 			if(Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame))
 			{
-				func_80034EC0(&pthis->skelAnime, sAnimations, 10);
+				SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 10);
 				pthis->unk_20A++;
 			}
 	}
@@ -389,7 +389,7 @@ void func_80AAAA24(EnMd* pthis)
 	}
 	else if(pthis->skelAnime.animation != &gMidoHandsOnHipsIdleAnim)
 	{
-		func_80034EC0(&pthis->skelAnime, sAnimations, 10);
+		SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 10);
 		func_80AAA92C(pthis, 0);
 	}
 
@@ -738,7 +738,7 @@ void EnMd_Init(Actor* thisx, GlobalContext* globalCtx)
 		return;
 	}
 
-	func_80034EC0(&pthis->skelAnime, sAnimations, 0);
+	SkelAnime_SetAnimByIndex(&pthis->skelAnime, sAnimations, 0);
 	Actor_SetScale(&pthis->actor, 0.01f);
 	pthis->actor.targetMode = 6;
 	pthis->alpha = 255;
